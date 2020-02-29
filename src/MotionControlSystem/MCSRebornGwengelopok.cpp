@@ -72,6 +72,7 @@ void MCS::initCommunicationBuffers() {
     setXYOArgBuffer = new I2CC::BufferedData(sizeof(int16_t)*2);
     returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
+    returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
 }
 
 void MCS::initSettings() {
@@ -154,10 +155,17 @@ void MCS::rotate(float angle) {
 }
 
 void MCS::gotoPoint(int16_t x, int16_t y) {
+    returnGotoBuffer->rewind();
     gotoArgBuffer->rewind();
-    I2CC::putData(x, gotoArgBuffer);
-    I2CC::putData(y, gotoArgBuffer);
-    I2CC::executeRPC(MCS_SLAVE_ID, GOTO_RPC_ID, gotoArgBuffer);
+    I2CC::putData<int16_t>(x, gotoArgBuffer);
+    I2CC::putData<int16_t>(y, gotoArgBuffer);
+    I2CC::dataRequest(MCS_SLAVE_ID, GOTO_RPC_ID, *returnGotoBuffer, gotoArgBuffer);
+
+    const int characterCount = 200;
+    char debugMessages[characterCount];
+    char* characters = (char*)returnGotoBuffer->dataArray;
+    memcpy(debugMessages, characters, characterCount);
+    ComMgr::Instance().printfln(DEBUG_HEADER, debugMessages);
 }
 
 void MCS::setXYO(int16_t x, int16_t y, float angle) {

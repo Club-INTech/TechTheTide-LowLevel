@@ -184,6 +184,7 @@ private:
     I2CC::BufferedData* returnDataTicks;
     I2CC::BufferedData* returnRawPosDataBuffer;
     I2CC::BufferedData* returnPosUpdateBuffer;
+    I2CC::BufferedData* returnGotoBuffer;
 
     // write buffers
     I2CC::BufferedData* singleBoolArgBuffer;
