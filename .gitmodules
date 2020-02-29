@@ -1,3 +1,6 @@
 [submodule "lib/Dynamixel-Com"]
 	path = lib/Dynamixel-Com
 	url = https://github.com/Club-INTech/Dynamixel-Com.git/
+[submodule "lib/I2C-Callables"]
+	path = lib/I2C-Callables
+	url = https://github.com/Club-INTech/I2C-Callables.git
