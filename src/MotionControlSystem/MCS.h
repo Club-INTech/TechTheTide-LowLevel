@@ -19,10 +19,32 @@
 #include "PID.hpp"
 #include "SelfContainedPID.hpp"
 #include "PointToPointTrajectory.h"
+#include <I2CC.h>
+#include "COM/SlaveIDs.h"
 #define ENCODER_OPTIMIZE_INTERRUPTS
 #include "Encoder.h"
 
 #include <cmath>
+
+// RPC ids used by the MCS
+constexpr uint8_t GOTO_RPC_ID = 1;
+constexpr uint8_t STOP_RPC_ID = 2;
+constexpr uint8_t POS_UPDATE_RPC_ID = 3;
+constexpr uint8_t TRANSLATE_RPC_ID = 4;
+constexpr uint8_t ROTATE_RPC_ID = 5;
+constexpr uint8_t SET_XYO_RPC_ID = 6;
+constexpr uint8_t SET_TRANSLATION_SPEED_RPC_ID = 7;
+constexpr uint8_t SET_ROTATION_SPEED_RPC_ID = 8;
+constexpr uint8_t CHANGE_TRANSLATION_CONTROL_STATE_RPC_ID = 9;
+constexpr uint8_t CHANGE_ROTATION_CONTROL_STATE_RPC_ID = 10;
+constexpr uint8_t CHANGE_FORCED_MOVEMENT_STATE_RPC_ID = 11;
+constexpr uint8_t FORCE_FORWARD_RPC_ID = 12;
+constexpr uint8_t FORCE_BACKWARDS_RPC_ID = 13;
+constexpr uint8_t FORCE_TURN_LEFT_RPC_ID = 14;
+constexpr uint8_t FORCE_TURN_RIGHT_RPC_ID = 15;
+constexpr uint8_t CHANGE_CONTROL_STATE_RPC_ID = 16;
+constexpr uint8_t GET_RAW_POS_DATA_RPC_ID = 17;
+constexpr uint8_t GET_TICKS_RPC_ID = 18;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -63,6 +85,12 @@ public:
     void initStatus();
 
     /**
+     * Initialise les différents BufferedData utilisés pour communiquer avec la carte Asserv'.
+     * Evite de faire des 'new' à chaque fois qu'on a besoin d'un buffer
+     */
+    void initCommunicationBuffers();
+
+    /**
      * Méthode appelée par un InterruptTimer afin d'envoyer au HL la position du robot
      */
     void sendPositionUpdate();
@@ -75,8 +103,7 @@ public:
     int16_t getX();
     int16_t getY();
     float getAngle();
-    int32_t getLeftTicks();
-    int32_t getRightTicks();
+    void getTicks(int32_t& left, int32_t& right);
     float getLeftSpeed();
     float getRightSpeed();
 
@@ -153,6 +180,8 @@ private:
 
     // Timer entre translation et rotation pour les goto
     uint32_t gotoTimer;
+
+    I2CC::BufferedData* returnDataTicks;
 };
 
 #endif //LL_MCSREBORN_H

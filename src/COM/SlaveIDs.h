@@ -1,0 +1,9 @@
+//
+// Created by jglrxavpok on 29/02/2020.
+//
+
+#ifndef TECHTHETIDE_LOWLEVEL_SLAVEIDS_H
+#define TECHTHETIDE_LOWLEVEL_SLAVEIDS_H
+
+constexpr uint8_t MCS_SLAVE_ID = 1;
+#endif //TECHTHETIDE_LOWLEVEL_SLAVEIDS_H

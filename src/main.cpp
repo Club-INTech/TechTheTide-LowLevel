@@ -8,7 +8,8 @@
 #include "Config/PinMapping.h"
 #include "COM/InterruptStackPrint.h"
 #include "COM/Order/OrderManager.h"
-
+#include "COM/SlaveIDs.h"
+#include <I2CC.h>
 //#include "MotionControlSystem/HardwareEncoder_ISRDEF.h"
 
 /* Interruptions d'asservissements */
@@ -107,16 +108,9 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSDA(D0);
 	Wire.begin();
 
-//    I2CC::executeRPC(1, 4, nullptr);
-
-    Wire.beginTransmission(1);
-    Wire.write(4);
-    Wire.endTransmission();
-
     while (true) {
         interruptStackPrint.print();
         orderMgr.communicate();
-
     }
 
 }

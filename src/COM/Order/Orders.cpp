@@ -196,10 +196,10 @@ void ORDER_cv1::impl(Args args)
 
 void ORDER_cod::impl(Args args)
 {
-    orderManager.highLevel.printfln(DEBUG_HEADER,"Gauche:");
-    orderManager.highLevel.printfln(DEBUG_HEADER,"%ld", orderManager.motionControlSystem.getLeftTicks());
-    orderManager.highLevel.printfln(DEBUG_HEADER,"Droite:");
-    orderManager.highLevel.printfln(DEBUG_HEADER,"%ld", orderManager.motionControlSystem.getRightTicks());
+    int32_t left = 0;
+    int32_t right = 0;
+    orderManager.motionControlSystem.getTicks(left, right);
+    orderManager.highLevel.printfln(DEBUG_HEADER,"Gauche: %ld, Droite: %ld", left, right);
 }
 
 void ORDER_pfdebug::impl(Args args)

@@ -15,6 +15,7 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
     encoderRight = new Encoder(ENCODER_RIGHT_A,ENCODER_RIGHT_B);
 #endif
 
+    initCommunicationBuffers();
     initSettings();
     initStatus();
     // FIXME : ? Duplication de ce que fait initStatus ?
@@ -61,6 +62,10 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 
     leftMotor.init();
     rightMotor.init();
+}
+
+void MCS::initCommunicationBuffers() {
+    returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
 }
 
 void MCS::initSettings() {
@@ -724,12 +729,11 @@ void MCS::setAngleOffset(float offset) {
     angleOffset = offset;
 }
 
-int32_t MCS::getLeftTicks() {
-    return leftTicks;
-}
-
-int32_t MCS::getRightTicks() {
-    return rightTicks;
+void MCS::getTicks(int32_t& left, int32_t& right) {
+    returnDataTicks->rewind();
+    I2CC::dataRequest(MCS_SLAVE_ID, GET_TICKS_RPC_ID, *returnDataTicks, nullptr);
+    I2CC::getData(left, returnDataTicks);
+    I2CC::getData(right, returnDataTicks);
 }
 
 float MCS::getLeftSpeed() {
