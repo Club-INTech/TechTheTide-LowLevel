@@ -76,11 +76,6 @@ a été mit en place.
 |       cv0        | Désactive l'asservissement en vitesse (/!\ : plus de déplacement)  |                                                               |
 |       cv1        |                Active l'asservissement en vitesse.                 |                                                               |
 |       cod        |                   Affiche les ticks de codeuse.                    |                                                               |
-|     pfdebug      |                                                                    |                                                               |
-|      rawpwm      |                                                                    |                                                               |
-|      getpwm      |                                                                    |                                                               |
-|      errors      |                                                                    |                                                               |
-|     rawspeed     |                                                                    |                                                               |
 |    rawposdata    | Retourne, dans l'ordre: x,y,angle, v_g, cible v_g, v_d, cible v_d. |                                                               |
 |     reseteth     |                 Force un reset du module ethernet.                 |                                                               |
 |  disableTorque   |              Désactive le couple du bras sélectionné.              |                 Côté du bras ("right"/"left")                 |

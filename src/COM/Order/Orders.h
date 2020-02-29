@@ -147,11 +147,6 @@ ORDER(cv1,0);
  * @Description: Affiche les ticks de codeuse.
  */
 ORDER(cod,0);
-ORDER(pfdebug,0);
-ORDER(rawpwm,1);
-ORDER(getpwm,0);
-ORDER(errors,0);
-ORDER(rawspeed,0);
 /**
  * @Description: Retourne, dans l'ordre: x,y,angle, v_g, cible v_g, v_d, cible v_d.
  */

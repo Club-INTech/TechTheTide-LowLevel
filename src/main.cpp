@@ -13,12 +13,6 @@
 //#include "MotionControlSystem/HardwareEncoder_ISRDEF.h"
 
 /* Interruptions d'asservissements */
-void motionControlInterrupt(HardwareTimer* hardwareTimer) {
-	static MCS &motionControlSystem = MCS::Instance();
-    motionControlSystem.control();
-	motionControlSystem.manageStop();
-}
-
 void positionInterrupt() {
 	static MCS &motionControlSystem = MCS::Instance();
 	motionControlSystem.sendPositionUpdate();

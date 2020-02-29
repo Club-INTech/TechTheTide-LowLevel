@@ -70,21 +70,8 @@ void ORDER_goto::impl(Args args)
     float targetY = OrderManager::parseFloat(args[1]);
     bool isSequential = false;
 
-    if(args.nbrParams() == 3)
-    {
-        isSequential = !strcmp(args[2],"true") || !strcmp(args[2],"1");
-        Serial.print("On séquentialise : ");
-        Serial.println(isSequential);
-    }
-//                if(-1500 <= targetX && targetX <= 1500 && 0 <= targetY && targetY <= 2000)
-//                {
-       orderManager.motionControlSystem.gotoPoint2(targetX,targetY);
-        orderManager.highLevel.printfln(DEBUG_HEADER, "goto %f %f %i", targetX, targetY, isSequential);
-//                }
-//                else
-//      {
-//                highLevel.log("ERREUR::Paramètres incorrects");
-//      }
+    orderManager.motionControlSystem.gotoPoint(targetX,targetY);
+    orderManager.highLevel.printfln(DEBUG_HEADER, "goto %f %f %i", targetX, targetY, isSequential);
 }
 
 void ORDER_followTrajectory::impl(Args args)
@@ -122,13 +109,7 @@ void ORDER_co::impl(Args args)
 
 void ORDER_cxyo::impl(Args args)
 {
-    orderManager.motionControlSystem.setX(OrderManager::parseFloat(args[0]));
-    orderManager.motionControlSystem.setY(OrderManager::parseFloat(args[1]));
-    orderManager.motionControlSystem.setAngle(OrderManager::parseFloat(args[2]));
-
-    // Mise à jour de l'offset et du target des codeuses. Faut pas tourner parce que le HL te dit où t'es. Je sais il est pas gentil mais faut l'accepter
-    orderManager.motionControlSystem.setAngleOffset(OrderManager::parseFloat(args[2]));
-    orderManager.motionControlSystem.resetEncoders();
+    orderManager.motionControlSystem.setXYO(OrderManager::parseFloat(args[0]), OrderManager::parseFloat(args[1]), OrderManager::parseFloat(args[2]));
     orderManager.highLevel.printfln(DEBUG_HEADER, "X,Y,O set");
 }
 
@@ -202,49 +183,9 @@ void ORDER_cod::impl(Args args)
     orderManager.highLevel.printfln(DEBUG_HEADER,"Gauche: %ld, Droite: %ld", left, right);
 }
 
-void ORDER_pfdebug::impl(Args args)
-{
-    //highLevel.printfln(STD_HEADER,"%d", (int)motionControlSystem.getRightSpeed());
-    //highLevel.printfln(STD_HEADER,"%d", (int)motionControlSystem.getRightMotorDir());
-    //highLevel.printfln(STD_HEADER,"%d", (int)motionControlSystem.getRightSetPoint());
-    //highLevel.printfln(STD_HEADER,"%d", (int)motionControlSystem.getRightMotorPWM());
-    //highLevel.printfln(STD_HEADER,"%d", (int)motionControlSystem.getCodD());
-}
-
-void ORDER_rawpwm::impl(Args args)
-{
-    //uint8_t rawpwm = OrderManager::parseInt(args[0]);
-    // FIXME   orderManager.motionControlSystem.orderRawPwm(Side::LEFT, rawpwm);
-    // FIXME  orderManager.motionControlSystem.orderRawPwm(Side::RIGHT, rawpwm);
-}
-
-void ORDER_getpwm::impl(Args args)
-{
-    //int32_t left, right;
-    // FIXME   orderManager.motionControlSystem.getPWMS(left, right);
-    // FIXME  orderManager.highLevel.printfln(DEBUG_HEADER,"PWMS: %ld - %ld", left, right);
-}
-
-void ORDER_errors::impl(Args args)
-{
-    //float leftProp, leftDer, leftInt, rightProp, rightDer, rightInt;
-    // FIXME  orderManager.motionControlSystem.getSpeedErrors(leftProp, leftInt, leftDer, rightProp, rightInt, rightDer);
-    // FIXME  orderManager.highLevel.printfln(DEBUG_HEADER,"Prop: %f - %f", leftProp, rightProp);
-    // FIXME orderManager.highLevel.printfln(DEBUG_HEADER,"Deriv: %f - %f", leftDer, rightDer);
-    // FIXME orderManager.highLevel.printfln(DEBUG_HEADER,"Integ: %f - %f", leftInt, rightInt);
-}
-
-void ORDER_rawspeed::impl(Args args)
-{
-    // int32_t leftsetpoint, rightsetpoint;
-    // FIXME motionControlSystem.rawWheelSpeed(parseInt(orderData.at(1)), leftsetpoint, rightsetpoint);
-    // FIXME orderManager.highLevel.printfln(DEBUG_HEADER,"Speed set");
-    // FIXME orderManager.motionControlSystem.getSpeedSetpoints(leftsetpoint, rightsetpoint);
-    // FIXME orderManager.highLevel.printfln(DEBUG_HEADER,"speed setpoints: %ld - %ld", leftsetpoint, rightsetpoint);
-}
-
 void ORDER_rawposdata::impl(Args args)
 {
+    orderManager.motionControlSystem.queryRawPosData();
     int32_t leftSpeedGoal, rightSpeedGoal;
     orderManager.motionControlSystem.getSpeedGoals(leftSpeedGoal, rightSpeedGoal);
 
@@ -254,10 +195,6 @@ void ORDER_rawposdata::impl(Args args)
     float leftSpeed = orderManager.motionControlSystem.getLeftSpeed();
     float rightSpeed = orderManager.motionControlSystem.getRightSpeed();
 
-    /*
-    orderManager.highLevel.printfln(DEBUG_HEADER,"%d,%d,%f,%f,%d,%f,%d",
-                                    xPos,yPos,angle,leftSpeed, leftSpeedGoal,rightSpeed,rightSpeedGoal);
-    */
     char s[50];
 
     snprintf(s,50,"%d,%d,%f,%f,%ld,%f,%ld\n", xPos,yPos,angle,leftSpeed, leftSpeedGoal,rightSpeed,rightSpeedGoal);

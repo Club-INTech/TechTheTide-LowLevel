@@ -32,6 +32,9 @@ struct RobotStatus
     float speedLeftWheel;
     float speedRightWheel;
 
+    long leftSpeedGoal;
+    long rightSpeedGoal;
+
     bool sentMoveAbnormal;
 
     RobotStatus();

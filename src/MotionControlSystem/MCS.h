@@ -45,6 +45,7 @@ constexpr uint8_t FORCE_TURN_RIGHT_RPC_ID = 15;
 constexpr uint8_t CHANGE_CONTROL_STATE_RPC_ID = 16;
 constexpr uint8_t GET_RAW_POS_DATA_RPC_ID = 17;
 constexpr uint8_t GET_TICKS_RPC_ID = 18;
+constexpr uint8_t FORCE_STOP_RPC_ID = 19;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -55,19 +56,13 @@ public:
 
     void initEncoders();
 
-    void manageStop();
-    void updatePositionOrientation();
-    void updateSpeed();
-    void control();
     void stop();
     void stopTranslation();
     void stopRotation();
 
     void translate(int16_t);
     void rotate(float);
-    void gotoPoint(int16_t,int16_t,bool);
-    void gotoPoint2(int16_t,int16_t);
-    void goto1(int16_t,int16_t);
+    void gotoPoint(int16_t,int16_t);
     void followTrajectory(const double* xTable, const double* yTable, int count);
 
     void speedBasedMovement(MOVEMENT);
@@ -125,11 +120,15 @@ public:
     void setY(int16_t);
     void setAngle(float);
 
+    void setXYO(int16_t, int16_t, float);
+
     void expectWallImpact();
 
     bool sentMoveAbnormal();
     bool isMoveAbnormal();
     void setMoveAbnormalSent(bool);
+
+    void queryRawPosData();
 
 
 private:
@@ -181,7 +180,17 @@ private:
     // Timer entre translation et rotation pour les goto
     uint32_t gotoTimer;
 
+    // read buffers
     I2CC::BufferedData* returnDataTicks;
+    I2CC::BufferedData* returnRawPosDataBuffer;
+    I2CC::BufferedData* returnPosUpdateBuffer;
+
+    // write buffers
+    I2CC::BufferedData* singleBoolArgBuffer;
+    I2CC::BufferedData* singleFloatArgBuffer;
+    I2CC::BufferedData* singleInt16ArgBuffer;
+    I2CC::BufferedData* gotoArgBuffer;
+    I2CC::BufferedData* setXYOArgBuffer;
 };
 
 #endif //LL_MCSREBORN_H
