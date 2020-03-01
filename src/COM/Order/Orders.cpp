@@ -15,6 +15,22 @@ using namespace I2CC;
 void ORDER_ping::impl(Args args)
 {
     orderManager.highLevel.printfln(EVENT_HEADER,"pong");
+
+    I2CC::BufferedData returnData(4*sizeof(char));
+    ((char*)returnData.dataArray)[0] = 'h';
+    ((char*)returnData.dataArray)[1] = 'o';
+    ((char*)returnData.dataArray)[2] = 'w';
+    ((char*)returnData.dataArray)[3] = '?';
+    bool valid = I2CC::dataRequest(MCS_SLAVE_ID, 0, returnData, nullptr);
+    char buf[5];
+    buf[0] = ((char*)returnData.dataArray)[0];
+    buf[1] = ((char*)returnData.dataArray)[1];
+    buf[2] = ((char*)returnData.dataArray)[2];
+    buf[3] = ((char*)returnData.dataArray)[3];
+    buf[4] = '\0';
+
+    Serial.println(buf);
+    Serial.println(valid ? "ok" : "NOK");
 }
 
 void ORDER_j::impl(Args args)
@@ -30,6 +46,7 @@ void ORDER_f::impl(Args args)
 
 void ORDER_xyo::impl(Args args)
 {
+    orderManager.motionControlSystem.queryXYO();
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getX());
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getY());
     orderManager.highLevel.printfln(STD_HEADER,"%f",orderManager.motionControlSystem.getAngle());
@@ -177,7 +194,7 @@ void ORDER_cv1::impl(Args args)
 
 void ORDER_cod::impl(Args args)
 {
-    int32_t left = 0;
+    int32_t left = 42;
     int32_t right = 0;
     orderManager.motionControlSystem.getTicks(left, right);
     orderManager.highLevel.printfln(DEBUG_HEADER,"Gauche: %ld, Droite: %ld", left, right);

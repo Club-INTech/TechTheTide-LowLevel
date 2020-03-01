@@ -46,6 +46,7 @@ constexpr uint8_t CHANGE_CONTROL_STATE_RPC_ID = 16;
 constexpr uint8_t GET_RAW_POS_DATA_RPC_ID = 17;
 constexpr uint8_t GET_TICKS_RPC_ID = 18;
 constexpr uint8_t FORCE_STOP_RPC_ID = 19;
+constexpr uint8_t GET_XYO_RPC_ID = 21;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -129,6 +130,7 @@ public:
     void setMoveAbnormalSent(bool);
 
     void queryRawPosData();
+    void queryXYO();
 
 
 private:
@@ -185,6 +187,7 @@ private:
     I2CC::BufferedData* returnRawPosDataBuffer;
     I2CC::BufferedData* returnPosUpdateBuffer;
     I2CC::BufferedData* returnGotoBuffer;
+    I2CC::BufferedData* returnXYO;
 
     // write buffers
     I2CC::BufferedData* singleBoolArgBuffer;

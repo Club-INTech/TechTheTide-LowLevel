@@ -9,6 +9,13 @@
 
 enum class MOVEMENT { FORWARD, BACKWARD, TRIGO, ANTITRIGO, CURVE, NONE };
 
+enum MovementStatus : uint8_t {
+    CURRENTLY_MOVING = 0,
+    STOPPED_MOVING,
+    UNABLE_TO_MOVE,
+    RETRY_GOTO,
+};
+
 struct RobotStatus
 {
     bool translation;
@@ -19,6 +26,7 @@ struct RobotStatus
     bool inGoto;
     bool forcedMovement;
     bool moving;
+    MovementStatus notMoving;
     bool stuck;
 
     float x;

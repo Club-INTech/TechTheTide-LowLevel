@@ -7,7 +7,7 @@
 void ComMgr::init() {
     if(com_options & SERIAL_W) {
         while(!Serial);
-        Serial.begin(115200);
+        Serial.begin(9600);
     }
     if( com_options & ETHERNET_RW )
     {

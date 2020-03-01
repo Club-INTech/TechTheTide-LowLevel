@@ -7,13 +7,8 @@
 
 MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 
-#if defined(MAIN)
-    encoderLeft = new Encoder(ENCODER_LEFT_B,ENCODER_LEFT_A);
-    encoderRight = new Encoder(ENCODER_RIGHT_B,ENCODER_RIGHT_A);
-#elif defined(SLAVE)
     encoderLeft = new Encoder(ENCODER_LEFT_A,ENCODER_LEFT_B);
     encoderRight = new Encoder(ENCODER_RIGHT_A,ENCODER_RIGHT_B);
-#endif
 
     initCommunicationBuffers();
     initSettings();
@@ -73,6 +68,8 @@ void MCS::initCommunicationBuffers() {
     returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
+    returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
+    returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
 }
 
 void MCS::initSettings() {
@@ -224,6 +221,10 @@ void MCS::sendPositionUpdate() {
     I2CC::getData(robotStatus.x, returnPosUpdateBuffer);
     I2CC::getData(robotStatus.y, returnPosUpdateBuffer);
     I2CC::getData(robotStatus.orientation, returnPosUpdateBuffer);
+    uint32_t millisValue;
+    I2CC::getData(millisValue, returnPosUpdateBuffer);
+
+    I2CC::getData(robotStatus.notMoving, returnPosUpdateBuffer);
     // FIXME : Does not seem to work properly
     ComMgr::Instance().printfln(POSITION_HEADER, "%f %f %f %li", robotStatus.x, robotStatus.y, robotStatus.orientation, millis());
 }
@@ -336,6 +337,18 @@ void MCS::getTicks(int32_t& left, int32_t& right) {
     I2CC::getData(right, returnDataTicks);
 }
 
+void MCS::queryXYO() {
+    returnXYO->rewind();
+    I2CC::dataRequest(MCS_SLAVE_ID, GET_XYO_RPC_ID, *returnXYO, nullptr);
+    int16_t x = 0;
+    int16_t y = 0;
+    I2CC::getData<int16_t>(x, returnXYO);
+    I2CC::getData<int16_t>(y, returnXYO);
+    robotStatus.x = x;
+    robotStatus.y = y;
+    I2CC::getData<float>(robotStatus.orientation, returnXYO);
+}
+
 float MCS::getLeftSpeed() {
     return robotStatus.speedLeftWheel;
 }
@@ -370,11 +383,16 @@ void MCS::queryRawPosData() {
     returnRawPosDataBuffer->rewind();
     I2CC::dataRequest(MCS_SLAVE_ID, GET_RAW_POS_DATA_RPC_ID, *returnRawPosDataBuffer, nullptr);
 
-    I2CC::getData(robotStatus.x, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.y, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.orientation, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.speedLeftWheel, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.leftSpeedGoal, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.speedRightWheel, returnRawPosDataBuffer);
-    I2CC::getData(robotStatus.rightSpeedGoal, returnRawPosDataBuffer);
+    int16_t x;
+    int16_t y;
+    I2CC::getData<int16_t>(x, returnRawPosDataBuffer);
+    I2CC::getData<int16_t>(y, returnRawPosDataBuffer);
+    robotStatus.x = x;
+    robotStatus.y = y;
+
+    I2CC::getData<float>(robotStatus.orientation, returnRawPosDataBuffer);
+    I2CC::getData<float>(robotStatus.speedLeftWheel, returnRawPosDataBuffer);
+    I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataBuffer);
+    I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataBuffer);
+    I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer);
 }

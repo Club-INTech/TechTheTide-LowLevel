@@ -50,14 +50,14 @@ void __attribute__((noreturn)) loop() {
 	/* Actuators */
 	// Par sécurité on met tout les actuators à LOW quand on les initialise
 	/* Pompe */
-	pinMode(RIGHT_PUMP_PIN,OUTPUT);
-	digitalWrite(RIGHT_PUMP_PIN,LOW);
+	/*pinMode(RIGHT_PUMP_PIN,OUTPUT);
+	digitalWrite(RIGHT_PUMP_PIN,LOW);*/
 
 	/* Electrovanne */
-	pinMode(LEFT_VALVE_PIN,OUTPUT);
+/*	pinMode(LEFT_VALVE_PIN,OUTPUT);
 	digitalWrite(LEFT_VALVE_PIN,LOW);
 	pinMode(RIGHT_VALVE_PIN,OUTPUT);
-	digitalWrite(RIGHT_VALVE_PIN,LOW);
+	digitalWrite(RIGHT_VALVE_PIN,LOW);*/
 
     /* InterruotStackPrint */
     InterruptStackPrint& interruptStackPrint = InterruptStackPrint::Instance();
