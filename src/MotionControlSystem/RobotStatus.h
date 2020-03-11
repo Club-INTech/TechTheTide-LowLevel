@@ -45,6 +45,8 @@ struct RobotStatus
 
     bool sentMoveAbnormal;
 
+    uint64_t controlBoardTime;
+
     RobotStatus();
     void updateStatus();
 };

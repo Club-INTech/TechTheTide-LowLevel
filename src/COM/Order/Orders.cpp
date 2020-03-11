@@ -50,6 +50,7 @@ void ORDER_xyo::impl(Args args)
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getX());
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getY());
     orderManager.highLevel.printfln(STD_HEADER,"%f",orderManager.motionControlSystem.getAngle());
+    orderManager.highLevel.printfln(STD_HEADER,"%li",orderManager.motionControlSystem.getControlBoardTime());
 }
 
 void ORDER_d::impl(Args args)

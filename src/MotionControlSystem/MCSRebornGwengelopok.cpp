@@ -69,7 +69,7 @@ void MCS::initCommunicationBuffers() {
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
     returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
-    returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
+    returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float) + sizeof(uint64_t));
 }
 
 void MCS::initSettings() {
@@ -122,6 +122,7 @@ void MCS::initSettings() {
 }
 
 void MCS::initStatus() {
+    robotStatus.controlBoardTime = 0;
     robotStatus.movement = MOVEMENT::NONE;
     robotStatus.moving = false;
     robotStatus.inRotationInGoto = false;
@@ -347,6 +348,7 @@ void MCS::queryXYO() {
     robotStatus.x = x;
     robotStatus.y = y;
     I2CC::getData<float>(robotStatus.orientation, returnXYO);
+    I2CC::getData<uint64_t>(robotStatus.controlBoardTime, returnXYO);
 }
 
 float MCS::getLeftSpeed() {
@@ -395,4 +397,8 @@ void MCS::queryRawPosData() {
     I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataBuffer);
     I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataBuffer);
     I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer);
+}
+
+uint64_t MCS::getControlBoardTime() {
+    return robotStatus.controlBoardTime;
 }

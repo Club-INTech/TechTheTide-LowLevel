@@ -132,6 +132,12 @@ public:
     void queryRawPosData();
     void queryXYO();
 
+    /**
+     * Returns the result of 'millis' on the board
+     * @return
+     */
+    uint64_t getControlBoardTime();
+
 
 private:
 
