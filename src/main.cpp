@@ -102,9 +102,23 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSDA(D0);
 	Wire.begin();
 
+	int time = 0;
+
+	orderMgr.execute("montlhery");
+	orderMgr.execute("av");
+
     while (true) {
+        if(time % 10 == 0) {
+            orderMgr.execute("rawposdata");
+        }
+
+        if(time == 1000) {
+            Serial.println("DATAEND");
+        }
         interruptStackPrint.print();
         orderMgr.communicate();
+
+        time++;
     }
 
 }

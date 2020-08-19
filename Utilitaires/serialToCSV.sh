@@ -48,11 +48,12 @@ trap 'pythonGraph \"$fileName\" \"$outFile\" $1' TERM
 trap 'pythonGraph \"$fileName\" \"$outFile\" $1' EXIT
 
 echo > /dev/ttyACM0
-stty -F /dev/ttyACM0 115200 raw -echo -echoe -echok
+stty -F /dev/ttyACM0 9600 raw -echo -echoe -echok
 
 while true; do
 	read line < /dev/ttyACM0
 	echo "$line" >> "$fileName"
+	echo "$line"
 	case "$line" in 
    		*"DATAEND"*)
    			 break;;
