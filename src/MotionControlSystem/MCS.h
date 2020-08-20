@@ -47,6 +47,8 @@ constexpr uint8_t GET_RAW_POS_DATA_RPC_ID = 17;
 constexpr uint8_t GET_TICKS_RPC_ID = 18;
 constexpr uint8_t FORCE_STOP_RPC_ID = 19;
 constexpr uint8_t GET_XYO_RPC_ID = 21;
+constexpr uint8_t DEBUG_RPC_ID = 22;
+constexpr uint8_t GET_BOARD_TIME_RPC_ID = 23;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -136,8 +138,10 @@ public:
      * Returns the result of 'millis' on the board
      * @return
      */
-    uint64_t getControlBoardTime();
+    uint64_t getControlBoardTimeMillis();
+    uint64_t getControlBoardTimeMicros();
 
+    void queryBoardTime();
 
 private:
 
@@ -194,6 +198,7 @@ private:
     I2CC::BufferedData* returnPosUpdateBuffer;
     I2CC::BufferedData* returnGotoBuffer;
     I2CC::BufferedData* returnXYO;
+    I2CC::BufferedData* boardTime;
 
     // write buffers
     I2CC::BufferedData* singleBoolArgBuffer;

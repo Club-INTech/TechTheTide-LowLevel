@@ -80,6 +80,8 @@ a été mit en place.
 |     reseteth     |                 Force un reset du module ethernet.                 |                                                               |
 |  disableTorque   |              Désactive le couple du bras sélectionné.              |                 Côté du bras ("right"/"left")                 |
 |   enableTorque   |               Active le couple du bras sélectionné.                |                 Côté du bras ("right"/"left")                 |
+|   debugAsserv    |                                                                    |                                                               |
+|     mcsTime      |                                                                    |                                                               |
 |    montlhery     |      Asservissement en vitesse seulement, mouvements forcés.       |                                                               |
 |        av        |    Impose une consigne de vitesse en translation vers l'avant.     |                                                               |
 |        rc        |   Impose une consigne de vitesse en translation vers l'arrière.    |                                                               |

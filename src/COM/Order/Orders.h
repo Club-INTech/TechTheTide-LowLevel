@@ -167,6 +167,8 @@ ORDER(disableTorque, 1);
  */
 ORDER(enableTorque, 1);
 
+ORDER(debugAsserv, 0);
+ORDER(mcsTime, 0);
 /*			 ___________________________
 * 		   *|                           |*
 *		   *|         MONTLHERY         |*

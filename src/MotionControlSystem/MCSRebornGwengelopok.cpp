@@ -46,6 +46,13 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
     leftSpeedPID.enableAWU(false);
     rightSpeedPID.setTunings(0.718591667, 0.00125, 30, 0);//0.0015
     rightSpeedPID.enableAWU(false);
+
+    /*
+    leftSpeedPID.setTunings(0.53, 0.00105, 30, 0);//0.0015
+    leftSpeedPID.enableAWU(false);
+    rightSpeedPID.setTunings(0.718591667, 0.00125, 30, 0);//0.0015
+    rightSpeedPID.enableAWU(false);
+*/
 /* asserv en translation */
     translationPID.setTunings(2.75,0,5,0);//2.75  0  5
     translationPID.enableAWU(false);
@@ -69,7 +76,8 @@ void MCS::initCommunicationBuffers() {
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
     returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
-    returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float) + sizeof(uint64_t));
+    returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
+    boardTime = new I2CC::BufferedData(sizeof(int32_t)*2);
 }
 
 void MCS::initSettings() {
@@ -122,7 +130,8 @@ void MCS::initSettings() {
 }
 
 void MCS::initStatus() {
-    robotStatus.controlBoardTime = 0;
+    robotStatus.controlBoardTimeMillis = 0;
+    robotStatus.controlBoardTimeMicros = 0;
     robotStatus.movement = MOVEMENT::NONE;
     robotStatus.moving = false;
     robotStatus.inRotationInGoto = false;
@@ -348,7 +357,20 @@ void MCS::queryXYO() {
     robotStatus.x = x;
     robotStatus.y = y;
     I2CC::getData<float>(robotStatus.orientation, returnXYO);
-    I2CC::getData<uint64_t>(robotStatus.controlBoardTime, returnXYO);
+}
+
+void MCS::queryBoardTime() {
+    boardTime->rewind();
+    I2CC::dataRequest(MCS_SLAVE_ID, GET_BOARD_TIME_RPC_ID, *boardTime, nullptr);
+    int32_t millis;
+    int32_t micros;
+    I2CC::getData<int32_t>(millis, boardTime);
+    I2CC::getData<int32_t>(micros, boardTime);
+    Serial.print("Millis: ");
+    Serial.println(millis);
+    Serial.print("Micros: ");
+    Serial.println(micros);
+    // TODO
 }
 
 float MCS::getLeftSpeed() {
@@ -399,6 +421,10 @@ void MCS::queryRawPosData() {
     I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer);
 }
 
-uint64_t MCS::getControlBoardTime() {
-    return robotStatus.controlBoardTime;
+uint64_t MCS::getControlBoardTimeMicros() {
+    return robotStatus.controlBoardTimeMicros;
+}
+
+uint64_t MCS::getControlBoardTimeMillis() {
+    return robotStatus.controlBoardTimeMillis;
 }

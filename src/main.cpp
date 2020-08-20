@@ -109,11 +109,15 @@ void __attribute__((noreturn)) loop() {
 
     while (true) {
         if(time % 10 == 0) {
-            orderMgr.execute("rawposdata");
+//            orderMgr.execute("rawposdata");
         }
 
         if(time == 1000) {
             Serial.println("DATAEND");
+        }
+
+        if(time % 100 == 0) {
+            orderMgr.execute("cod");
         }
         interruptStackPrint.print();
         orderMgr.communicate();

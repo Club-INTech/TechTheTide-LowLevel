@@ -50,7 +50,12 @@ void ORDER_xyo::impl(Args args)
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getX());
     orderManager.highLevel.printfln(STD_HEADER,"%i",orderManager.motionControlSystem.getY());
     orderManager.highLevel.printfln(STD_HEADER,"%f",orderManager.motionControlSystem.getAngle());
-    orderManager.highLevel.printfln(STD_HEADER,"%li",orderManager.motionControlSystem.getControlBoardTime());
+}
+
+void ORDER_mcsTime::impl(Args args) {
+    orderManager.motionControlSystem.queryBoardTime();
+    orderManager.highLevel.printfln(STD_HEADER,"%i",((int32_t)orderManager.motionControlSystem.getControlBoardTimeMillis()));
+    orderManager.highLevel.printfln(STD_HEADER,"%lu",((int32_t)orderManager.motionControlSystem.getControlBoardTimeMicros()));
 }
 
 void ORDER_d::impl(Args args)
@@ -865,6 +870,21 @@ void ORDER_enableTorque::impl(Args args) {
     MOVE_ARM(args[0],
              arm->setTorque(true);
     )
+}
+
+void ORDER_debugAsserv::impl(Args args) {
+    BufferedData answer(sizeof(int16_t) * 2);
+    dataRequest(MCS_SLAVE_ID, DEBUG_RPC_ID, answer, nullptr);
+    int16_t leftPWM;
+    int16_t rightPWM;
+    getData<int16_t>(leftPWM, &answer);
+    getData<int16_t>(rightPWM, &answer);
+    Serial.print(">> ");
+    Serial.print(leftPWM);
+    Serial.println();
+    Serial.print(">> ");
+    Serial.print(rightPWM);
+    Serial.println();
 }
 
 void ORDER_torqueBras::impl(Args args)

@@ -53,8 +53,7 @@ stty -F /dev/ttyACM0 9600 raw -echo -echoe -echok
 while true; do
 	read line < /dev/ttyACM0
 	echo "$line" >> "$fileName"
-	echo "$line"
-	case "$line" in 
+	case "$line" in
    		*"DATAEND"*)
    			 break;;
 	esac
