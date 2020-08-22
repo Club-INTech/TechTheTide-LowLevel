@@ -109,7 +109,7 @@ void __attribute__((noreturn)) loop() {
 	orderMgr.execute("av");
 
     while (true) {
-        if(time % 150 == 0) {
+        if(time % 100 == 0) {
             orderMgr.execute("rawposdata");
         }
 

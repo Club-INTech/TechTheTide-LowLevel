@@ -51,7 +51,6 @@ echo > /dev/ttyACM0
 stty -F /dev/ttyACM0 9600 raw -echo -echoe -echok
 
 while true; do
-#  printf "\n" >> /dev/ttyACM0
 	read line < /dev/ttyACM0
 	echo "$line" >> "$fileName"
 	case "$line" in
