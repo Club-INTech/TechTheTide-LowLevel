@@ -104,20 +104,29 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
+
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
     while (true) {
-        if(time % 10 == 0) {
-//            orderMgr.execute("rawposdata");
+        if(time % 150 == 0) {
+            orderMgr.execute("rawposdata");
         }
 
-        if(time == 1000) {
+        if(time == 2000) {
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
             Serial.println("DATAEND");
         }
 
         if(time % 100 == 0) {
-            orderMgr.execute("cod");
+//            orderMgr.execute("cod");
         }
         interruptStackPrint.print();
         orderMgr.communicate();

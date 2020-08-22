@@ -403,22 +403,29 @@ void MCS::setMoveAbnormalSent(bool val) {
     robotStatus.sentMoveAbnormal = val;
 }
 
+void checkError(bool b, const char* source) {
+    if(!b) {
+        Serial.print("!!!!! Invalid rawposdata answer !!!!! ");
+        Serial.println(source);
+    }
+}
+
 void MCS::queryRawPosData() {
     returnRawPosDataBuffer->rewind();
-    I2CC::dataRequest(MCS_SLAVE_ID, GET_RAW_POS_DATA_RPC_ID, *returnRawPosDataBuffer, nullptr);
+    checkError(I2CC::dataRequest(MCS_SLAVE_ID, GET_RAW_POS_DATA_RPC_ID, *returnRawPosDataBuffer, nullptr), "dataRequest");
 
     int16_t x;
     int16_t y;
-    I2CC::getData<int16_t>(x, returnRawPosDataBuffer);
-    I2CC::getData<int16_t>(y, returnRawPosDataBuffer);
+    checkError(I2CC::getData<int16_t>(x, returnRawPosDataBuffer), "x");
+    checkError(I2CC::getData<int16_t>(y, returnRawPosDataBuffer), "y");
     robotStatus.x = x;
     robotStatus.y = y;
 
-    I2CC::getData<float>(robotStatus.orientation, returnRawPosDataBuffer);
-    I2CC::getData<float>(robotStatus.speedLeftWheel, returnRawPosDataBuffer);
-    I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataBuffer);
-    I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataBuffer);
-    I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer);
+    checkError(I2CC::getData<float>(robotStatus.orientation, returnRawPosDataBuffer), "orientation");
+    checkError(I2CC::getData<float>(robotStatus.speedLeftWheel, returnRawPosDataBuffer), "speed left wheel");
+    checkError(I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataBuffer), "left speed goal");
+    checkError(I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataBuffer), "speed right wheel");
+    checkError(I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer), "right speed goal");
 }
 
 uint64_t MCS::getControlBoardTimeMicros() {
