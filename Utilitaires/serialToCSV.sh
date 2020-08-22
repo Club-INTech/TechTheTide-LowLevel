@@ -51,13 +51,13 @@ echo > /dev/ttyACM0
 stty -F /dev/ttyACM0 9600 raw -echo -echoe -echok
 
 while true; do
-	read line < /dev/ttyACM0
+	read line
 	echo "$line" >> "$fileName"
 	case "$line" in
    		*"DATAEND"*)
    			 break;;
 	esac
-done
+done < /dev/ttyACM0
 
 pythonGraph "$fileName" "$outFile" "$1"
 
