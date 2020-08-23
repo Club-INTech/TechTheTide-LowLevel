@@ -6,7 +6,8 @@
 
 void ComMgr::init() {
     if(com_options & SERIAL_W) {
-        while(!Serial);
+        //while(!Serial);
+        delay(5000);
         Serial.begin(9600);
     }
     if( com_options & ETHERNET_RW )

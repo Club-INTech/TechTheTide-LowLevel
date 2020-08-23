@@ -104,7 +104,6 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
-
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
@@ -113,7 +112,7 @@ void __attribute__((noreturn)) loop() {
             orderMgr.execute("rawposdata");
         }
 
-        if(time == 2000) {
+        if(time == 5000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
