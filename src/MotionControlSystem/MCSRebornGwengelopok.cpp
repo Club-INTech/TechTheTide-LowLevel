@@ -43,9 +43,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0.001, 0, 0, 0);//0.0015
+    leftSpeedPID.setTunings(0.1, 0, 0, 0);//0.0015
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(0.001, 0, 0, 0);//0.0015
+    rightSpeedPID.setTunings(0.1, 0, 0, 0);//0.0015
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -191,6 +191,7 @@ void MCS::sendParametersToCarteMCS(){
     I2CC::putData<float>(controlSettings.tolerancyDifferenceSpeed, sendParametersToCarteMCSBuffer);
 
     I2CC::executeRPC(MCS_SLAVE_ID, SEND_PARAMETERS_TO_CARTE_MCS);
+
 }
 
 void MCS::stop() {
