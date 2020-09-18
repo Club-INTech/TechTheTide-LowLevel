@@ -90,7 +90,7 @@ void __attribute__((noreturn)) loop() {
     Serial.println("Setup DONE");
 
 	Serial.println("Starting...");
-    MCS::Instance().sendParametersToCarteMCS();
+
 
 	/**
 	 * Boucle principale, y est géré:
@@ -102,7 +102,7 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSCL(D1);
 	Wire.setSDA(D0);
 	Wire.begin();
-
+    MCS::Instance().sendParametersToCarteMCS();
 
 
 	int time = 0;

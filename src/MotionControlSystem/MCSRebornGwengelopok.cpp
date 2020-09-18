@@ -43,7 +43,7 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0.1, 0, 0, 0);//0.0015
+    leftSpeedPID.setTunings(0, 0, 0, 0);//0.0015
     leftSpeedPID.enableAWU(false);
     rightSpeedPID.setTunings(0.1, 0, 0, 0);//0.0015
     rightSpeedPID.enableAWU(false);
