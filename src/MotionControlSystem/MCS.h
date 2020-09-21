@@ -209,6 +209,7 @@ private:
     I2CC::BufferedData* gotoArgBuffer;
     I2CC::BufferedData* setXYOArgBuffer;
     I2CC::BufferedData* sendParametersToCarteMCSBuffer;
+    I2CC::BufferedData* returnParametersBuffer;
 };
 
 #endif //LL_MCSREBORN_H

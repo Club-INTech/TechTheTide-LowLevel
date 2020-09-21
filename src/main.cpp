@@ -30,6 +30,7 @@ void __attribute__((noreturn)) loop() {
 	 *************************/
 
     InitAllPins();
+    delay(5000);
 
     // TODO : Automate init
     ComMgr::Instance().init();
@@ -105,35 +106,37 @@ void __attribute__((noreturn)) loop() {
     MCS::Instance().sendParametersToCarteMCS();
 
 
-	int time = 0;
-
+	int tick = 0;
+    int time = 0;
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
+    int stopTick = 20;
+
     while (true) {
-        if(time % 10 == 0) {
-            orderMgr.execute("rawposdata");
-        }
 
-        if(time == 100) {
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-            Serial.println("DATAEND");
-        }
+        delay(25);
 
-        if(time % 10 == 0) {
-            orderMgr.execute("cod");
-        }
+        tick++;
+
+        time = millis();
+//        orderMgr.execute("rawposdata");
+        time = millis() - time;
+//        Serial.printf("Temps de posdata : %d\n", time);
+
+        orderMgr.execute("cod");
+
         interruptStackPrint.print();
         orderMgr.communicate();
 
-        time++;
+        if (tick==stopTick*2)
+        {
+            Serial.println("DATAEND");
+        }
+
+
+
+
     }
 
 }

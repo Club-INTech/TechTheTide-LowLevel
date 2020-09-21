@@ -13,7 +13,6 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
     initCommunicationBuffers();
     initSettings();
     initStatus();
-    sendParametersToCarteMCS();
     // FIXME : ? Duplication de ce que fait initStatus ?
     robotStatus.controlled = true;
     robotStatus.controlledRotation = true;
@@ -43,9 +42,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0, 0, 0, 0);//0.0015
+    leftSpeedPID.setTunings(0.3, 0, 0, 0);//0.0015
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(0.1, 0, 0, 0);//0.0015
+    rightSpeedPID.setTunings(0.25, 0, 0, 0);//0.0015
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -79,7 +78,8 @@ void MCS::initCommunicationBuffers() {
     returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
     returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
     boardTime = new I2CC::BufferedData(sizeof(int32_t)*2);
-    sendParametersToCarteMCSBuffer = new I2CC::BufferedData(sizeof(float)*28);
+    sendParametersToCarteMCSBuffer = new I2CC::BufferedData(sizeof(float)*8);
+    returnParametersBuffer = new I2CC::BufferedData(sizeof(float)*8);
 }
 
 void MCS::initSettings() {
@@ -163,34 +163,41 @@ void MCS::sendParametersToCarteMCS(){
     I2CC::putData<float>(rightSpeedPID.getKd(), sendParametersToCarteMCSBuffer);
     I2CC::putData<float>(rightSpeedPID.getAWU(), sendParametersToCarteMCSBuffer);
 
-    I2CC::putData<float>(translationPID.getKp(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(translationPID.getKi(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(translationPID.getKd(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(translationPID.getAWU(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(translationPID.getKp(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(translationPID.getKi(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(translationPID.getKd(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(translationPID.getAWU(), sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(rotationPID.getKp(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(rotationPID.getKi(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(rotationPID.getKd(), sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(rotationPID.getAWU(), sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(controlSettings.maxAcceleration, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.maxDeceleration, sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(controlSettings.maxRotationSpeed, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.maxTranslationSpeed, sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(controlSettings.tolerancySpeed , sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.tolerancyAngle, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.tolerancyTranslation, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.tolerancyX, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.tolerancyY, sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(controlSettings.stopDelay, sendParametersToCarteMCSBuffer);
+//
+//    I2CC::putData<float>(controlSettings.tolerancyDerivative, sendParametersToCarteMCSBuffer);
+//    I2CC::putData<float>(controlSettings.tolerancyDifferenceSpeed, sendParametersToCarteMCSBuffer);
 
-    I2CC::putData<float>(rotationPID.getKp(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(rotationPID.getKi(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(rotationPID.getKd(), sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(rotationPID.getAWU(), sendParametersToCarteMCSBuffer);
+    I2CC::dataRequest(MCS_SLAVE_ID, SEND_PARAMETERS_TO_CARTE_MCS, *returnParametersBuffer, sendParametersToCarteMCSBuffer);
 
-    I2CC::putData<float>(controlSettings.maxAcceleration, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.maxDeceleration, sendParametersToCarteMCSBuffer);
+    float received[8];
+    for (int i = 0; i < 8; i++) {
+        I2CC::getData<float>(received[i], returnParametersBuffer);
+        Serial.printf("%f\n", received[i]);
+    }
 
-    I2CC::putData<float>(controlSettings.maxRotationSpeed, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.maxTranslationSpeed, sendParametersToCarteMCSBuffer);
-
-    I2CC::putData<float>(controlSettings.tolerancySpeed , sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.tolerancyAngle, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.tolerancyTranslation, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.tolerancyX, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.tolerancyY, sendParametersToCarteMCSBuffer);
-
-    I2CC::putData<float>(controlSettings.stopDelay, sendParametersToCarteMCSBuffer);
-
-    I2CC::putData<float>(controlSettings.tolerancyDerivative, sendParametersToCarteMCSBuffer);
-    I2CC::putData<float>(controlSettings.tolerancyDifferenceSpeed, sendParametersToCarteMCSBuffer);
-
-    I2CC::executeRPC(MCS_SLAVE_ID, SEND_PARAMETERS_TO_CARTE_MCS);
 
 }
 
