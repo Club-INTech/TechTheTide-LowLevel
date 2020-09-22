@@ -107,37 +107,45 @@ void __attribute__((noreturn)) loop() {
 
 
 	int tick = 0;
+    tick = millis();
     int time = 0;
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
-    int stopTick = 20;
+//    int stopTick = 20;
 
     while (true) {
+        tick = millis() - tick;
+        Serial.printf("la boucle principale a pris %d ms \n", tick);
+        tick = millis();
 
-        delay(25);
 
-        tick++;
 
-        time = millis();
-//        orderMgr.execute("rawposdata");
-        time = millis() - time;
-//        Serial.printf("Temps de posdata : %d\n", time);
+        if(time % 2 == 0) {
+            orderMgr.execute("rawposdata");
+        }
 
-        orderMgr.execute("cod");
-
-        interruptStackPrint.print();
-        orderMgr.communicate();
-
-        if (tick==stopTick*2)
-        {
+        if(time == 100) {
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
+            Serial.println("DATAEND");
             Serial.println("DATAEND");
         }
 
+        if(time % 2 == 0) {
+//            orderMgr.execute("cod");
+        }
+        interruptStackPrint.print();
+        orderMgr.communicate();
 
-
-
+        time++;
     }
+
 
 }
 
