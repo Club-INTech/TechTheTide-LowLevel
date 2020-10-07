@@ -209,6 +209,8 @@ void ORDER_cod::impl(Args args)
 void ORDER_rawposdata::impl(Args args)
 {
     orderManager.motionControlSystem.queryRawPosData();
+
+
     int32_t leftSpeedGoal, rightSpeedGoal;
     orderManager.motionControlSystem.getSpeedGoals(leftSpeedGoal, rightSpeedGoal);
 
@@ -219,7 +221,22 @@ void ORDER_rawposdata::impl(Args args)
     float rightSpeed = orderManager.motionControlSystem.getRightSpeed();
 
     //char s[50];
-
+/*
+    Serial.print(xPos);
+    Serial.print(",");
+    Serial.print(yPos);
+    Serial.print(",");
+    Serial.print(angle);
+    Serial.print(",");
+    Serial.print(leftSpeed);
+    Serial.print(",");
+    Serial.print(leftSpeedGoal);
+    Serial.print(",");
+    Serial.print(rightSpeed);
+    Serial.print(",");
+    Serial.print(rightSpeedGoal);
+    Serial.println();
+*/
     Serial.printf("%d,%d,%f,%f,%ld,%f,%ld\n", xPos,yPos,angle,leftSpeed, leftSpeedGoal,rightSpeed,rightSpeedGoal);
     //int32_t right, left;
     //motionControlSystem.getPWMS(left,right);

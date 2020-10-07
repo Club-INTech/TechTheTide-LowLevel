@@ -30,7 +30,7 @@ void __attribute__((noreturn)) loop() {
 	 *************************/
 
     InitAllPins();
-    delay(5000);
+    delay(2000);
 
     // TODO : Automate init
     ComMgr::Instance().init();
@@ -121,11 +121,14 @@ void __attribute__((noreturn)) loop() {
 
 
 
-        if(time % 2 == 0) {
-            orderMgr.execute("rawposdata");
+        if(time % 20 == 0) {
+            long t = millis();
+            //orderMgr.execute("rawposdata");
+            Serial.println("rawposdata");
+            Serial.printf("rawposdata: %d\n", millis()-t);
         }
 
-        if(time == 100) {
+        if(time == 1000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
