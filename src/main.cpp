@@ -87,6 +87,7 @@ void __attribute__((noreturn)) loop() {
     // FIXME: Pour le débug
     ActuatorsMgr::Instance().initTorques();
     Serial.println("Dynamixels OK");
+    MCS::Instance().sendParametersToCarteMCS();
     Serial.println("Setup DONE");
 
 	Serial.println("Starting...");

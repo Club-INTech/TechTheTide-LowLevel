@@ -42,9 +42,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0.3, 0, 0, 0);//0.0015
+    leftSpeedPID.setTunings(2, 0, 0, 0);//0.3 0    0.25   0.22
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(0.25, 0, 0, 0);//0.0015
+    rightSpeedPID.setTunings(1, 0, 0, 0);//0.25 0    0.22    0.18
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -124,7 +124,8 @@ void MCS::initSettings() {
 #if defined(MAIN)
     controlSettings.tolerancyDerivative = 7;
 #elif defined(SLAVE)
-    controlSettings.tolerancyDerivative = 0.0000001; //à laisser très petit sinon le robot ne s'arrete pas
+    //controlSettings.tolerancyDerivative = 0.0000001; //à laisser très petit sinon le robot ne s'arrete pas
+    controlSettings.tolerancyDerivative = 1; //à laisser très petit sinon le robot ne s'arrete pas
 #endif
 
     /* patate */
