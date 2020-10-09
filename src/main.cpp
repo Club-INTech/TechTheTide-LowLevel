@@ -9,7 +9,7 @@
 #include "COM/InterruptStackPrint.h"
 #include "COM/Order/OrderManager.h"
 #include "COM/SlaveIDs.h"
-#include <I2CC.h>
+#include "I2CC.h"
 //#include "MotionControlSystem/HardwareEncoder_ISRDEF.h"
 
 /* Interruptions d'asservissements */
@@ -30,7 +30,6 @@ void __attribute__((noreturn)) loop() {
 	 *************************/
 
     InitAllPins();
-    delay(2000);
 
     // TODO : Automate init
     ComMgr::Instance().init();
@@ -92,7 +91,6 @@ void __attribute__((noreturn)) loop() {
 
 	Serial.println("Starting...");
 
-
 	/**
 	 * Boucle principale, y est géré:
 	 * La communication HL
@@ -103,32 +101,19 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSCL(D1);
 	Wire.setSDA(D0);
 	Wire.begin();
-    MCS::Instance().sendParametersToCarteMCS();
 
+	int time = 0;
 
-	int tick = 0;
-    tick = millis();
-    int time = 0;
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
-//    int stopTick = 20;
-
     while (true) {
-        tick = millis() - tick;
-        Serial.printf("la boucle principale a pris %d ms \n", tick);
-        tick = millis();
-
-
-
-        if(time % 20 == 0) {
-            long t = millis();
-            //orderMgr.execute("rawposdata");
-            Serial.println("rawposdata");
-            Serial.printf("rawposdata: %d\n", millis()-t);
+        if(time % 100 == 0) {
+            orderMgr.execute("rawposdata");
+//            orderMgr.execute("cod");
         }
 
-        if(time == 1000) {
+        if(time == 5000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
@@ -140,7 +125,7 @@ void __attribute__((noreturn)) loop() {
             Serial.println("DATAEND");
         }
 
-        if(time % 2 == 0) {
+        if(time % 100 == 0) {
 //            orderMgr.execute("cod");
         }
         interruptStackPrint.print();
@@ -148,7 +133,6 @@ void __attribute__((noreturn)) loop() {
 
         time++;
     }
-
 
 }
 

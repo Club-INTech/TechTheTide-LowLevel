@@ -3,7 +3,7 @@
 pythonGraph () {
 	trap "" EXIT
 	echo $1 $2 $3
-	echo "DATAEND" >> "$1"
+	echo "DATAEND" >> $1
 	shift
 	python3 extraction_asserv.py "$1" "$2"
 	exit
@@ -25,7 +25,7 @@ else
 fi
 
 if [ -e "$fileName" ]; then
-	fileName=".""$(echo $fileName | cut -f 2 -d".")""-$(date +'%Y-%m-%d @ %Hh%M').csv"
+	fileName=".""$(echo $fileName | cut -f 2 -d".")""-$(date +'%Y-%m-%d@%Hh%M').csv"
 fi
 
 touch "$fileName"
@@ -34,30 +34,31 @@ outFile=$(echo "$fileName" | cut -f 3 -d"/")
 
 if [ ! -e /dev/ttyACM0 ]; then
 	echo "Waiting for serial /dev/ttyACM0"
-	echo "Retrying every 100ms"
+	echo "Retrying every 10ms"
 
 	while [ ! -e /dev/ttyACM0 ]; do
-		sleep 0.1
+		sleep 0.01
 	done
 fi
 
 
 # Useless to trap signals if nothing has been setup/nothing could have been read
-trap 'pythonGraph \"$fileName\" \"$outFile\" $1' INT
-trap 'pythonGraph \"$fileName\" \"$outFile\" $1' TERM
-trap 'pythonGraph \"$fileName\" \"$outFile\" $1' EXIT
+trap 'pythonGraph $fileName $outFile $1' INT
+trap 'pythonGraph $fileName $outFile $1' TERM
+trap 'pythonGraph $fileName $outFile $1' EXIT
 
-echo > /dev/ttyACM0
-stty -F /dev/ttyACM0 9600 raw -echo -echoe -echok
+echo >/dev/ttyACM0
+stty -F /dev/ttyACM0 115200 raw -echo -echoe -echok
 
 while true; do
 	read line
-	echo "$line" >> "$fileName"
-	case "$line" in
-   		*"DATAEND"*)
+	echo $line >>$fileName
+	echo $line
+	case $line in
+  		*"DATAEND"*)
    			 break;;
 	esac
-done < /dev/ttyACM0
+done </dev/ttyACM0
 
 pythonGraph "$fileName" "$outFile" "$1"
 
