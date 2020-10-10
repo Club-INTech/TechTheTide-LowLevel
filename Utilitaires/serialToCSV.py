@@ -1,7 +1,8 @@
-#!usr/bin/python
+#!/usr/bin/python3
+# This script is supposed to do the same as serialToCSV.sh, but using python, so avoiding the blocking bash read
 import os
 import signal
-import sys as suus
+import sys as suus  # SUUS
 import time
 
 print("Warning! this script must be run from the Utilities directory")
@@ -51,3 +52,5 @@ while True:
 	csv.write(line)
 	if line in "DATAEND":
 		break
+
+pythonGraph()
