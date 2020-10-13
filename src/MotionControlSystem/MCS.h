@@ -50,6 +50,8 @@ constexpr uint8_t GET_XYO_RPC_ID = 21;
 constexpr uint8_t DEBUG_RPC_ID = 22;
 constexpr uint8_t GET_BOARD_TIME_RPC_ID = 23;
 constexpr uint8_t SEND_PARAMETERS_TO_CARTE_MCS = 24;
+constexpr uint8_t GET_RAW_POS_DATA_SPEED_RPC_ID = 25;
+constexpr uint8_t GET_RAW_POS_DATA_POS_RPC_ID = 26;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -134,6 +136,8 @@ public:
     void setMoveAbnormalSent(bool);
 
     void queryRawPosData();
+    void queryRawPosDataSpeed();
+    void queryRawPosDataPos();
     void queryXYO();
 
     /**
@@ -197,6 +201,8 @@ private:
     // read buffers
     I2CC::BufferedData* returnDataTicks;
     I2CC::BufferedData* returnRawPosDataBuffer;
+    I2CC::BufferedData* returnRawPosDataSpeedBuffer;
+    I2CC::BufferedData* returnRawPosDataPosBuffer;
     I2CC::BufferedData* returnPosUpdateBuffer;
     I2CC::BufferedData* returnGotoBuffer;
     I2CC::BufferedData* returnXYO;

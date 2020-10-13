@@ -113,19 +113,15 @@ void __attribute__((noreturn)) loop() {
 	orderMgr.execute("av");
 
 //    int stopTick = 20;
+    int erreur = 1;
 
     while (true) {
-        tick = millis() - tick;
-        Serial.printf("la boucle principale a pris %d ms \n", tick);
-        tick = millis();
-
-
 
         if(time % 2 == 0) {
-            orderMgr.execute("rawposdata");
+            orderMgr.execute("rawposdataSpeed");
         }
 
-        if(time == 100) {
+        if(time == 500) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");

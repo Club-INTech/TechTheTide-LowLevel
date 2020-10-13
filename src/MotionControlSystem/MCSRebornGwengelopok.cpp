@@ -42,9 +42,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0.3, 0, 0, 0);//0.0015
+    leftSpeedPID.setTunings(0.5, 0, 0, 0);//0.0015
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(0.25, 0, 0, 0);//0.0015
+    rightSpeedPID.setTunings(0.45, 0, 0, 0);//0.0015
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -74,6 +74,8 @@ void MCS::initCommunicationBuffers() {
     setXYOArgBuffer = new I2CC::BufferedData(sizeof(int16_t)*2);
     returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
+    returnRawPosDataSpeedBuffer = new I2CC::BufferedData(sizeof(float)*2 + sizeof(long)*2);
+    returnRawPosDataPosBuffer = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float)*1);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
     returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
     returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
@@ -153,6 +155,7 @@ void MCS::sendParametersToCarteMCS(){
      *  Cela permet de ne pas avoir à reflasher la carte asserv pour changer les paramètres d'asserv.
      */
     sendParametersToCarteMCSBuffer->rewind();
+    returnParametersBuffer->rewind();
     I2CC::putData<float>(leftSpeedPID.getKp(), sendParametersToCarteMCSBuffer);
     I2CC::putData<float>(leftSpeedPID.getKi(), sendParametersToCarteMCSBuffer);
     I2CC::putData<float>(leftSpeedPID.getKd(), sendParametersToCarteMCSBuffer);
@@ -482,6 +485,29 @@ void MCS::queryRawPosData() {
     checkError(I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataBuffer), "left speed goal");
     checkError(I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataBuffer), "speed right wheel");
     checkError(I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataBuffer), "right speed goal");
+}
+
+void MCS::queryRawPosDataSpeed() {
+    returnRawPosDataSpeedBuffer->rewind();
+    checkError(I2CC::dataRequest(MCS_SLAVE_ID, GET_RAW_POS_DATA_SPEED_RPC_ID, *returnRawPosDataSpeedBuffer, nullptr), "dataRequest");
+    checkError(I2CC::getData<float>(robotStatus.speedLeftWheel, returnRawPosDataSpeedBuffer), "speed left wheel");
+    checkError(I2CC::getData<float>(robotStatus.speedRightWheel, returnRawPosDataSpeedBuffer), "speed right wheel");
+    checkError(I2CC::getData<long>(robotStatus.leftSpeedGoal, returnRawPosDataSpeedBuffer), "left speed goal");
+    checkError(I2CC::getData<long>(robotStatus.rightSpeedGoal, returnRawPosDataSpeedBuffer), "right speed goal");
+
+}
+
+void MCS::queryRawPosDataPos() {
+    returnRawPosDataPosBuffer->rewind();
+    checkError(I2CC::dataRequest(MCS_SLAVE_ID, GET_RAW_POS_DATA_POS_RPC_ID, *returnRawPosDataPosBuffer, nullptr), "dataRequest");
+
+    int16_t x;
+    int16_t y;
+    checkError(I2CC::getData<int16_t>(x, returnRawPosDataPosBuffer), "x");
+    checkError(I2CC::getData<int16_t>(y, returnRawPosDataPosBuffer), "y");
+    robotStatus.x = x;
+    robotStatus.y = y;
+    checkError(I2CC::getData<float>(robotStatus.orientation, returnRawPosDataPosBuffer), "orientation");
 }
 
 uint64_t MCS::getControlBoardTimeMicros() {

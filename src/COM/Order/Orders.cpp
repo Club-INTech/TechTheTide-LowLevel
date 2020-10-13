@@ -208,8 +208,31 @@ void ORDER_cod::impl(Args args)
 
 void ORDER_rawposdata::impl(Args args)
 {
-    orderManager.motionControlSystem.queryRawPosData();
-    int32_t leftSpeedGoal, rightSpeedGoal;
+//    orderManager.motionControlSystem.queryRawPosData();
+//    int32_t leftSpeedGoal, rightSpeedGoal;
+//    orderManager.motionControlSystem.getSpeedGoals(leftSpeedGoal, rightSpeedGoal);
+//
+//    int16_t xPos = orderManager.motionControlSystem.getX();
+//    int16_t yPos = orderManager.motionControlSystem.getY();
+//    float angle = orderManager.motionControlSystem.getAngle();
+//    float leftSpeed = orderManager.motionControlSystem.getLeftSpeed();
+//    float rightSpeed = orderManager.motionControlSystem.getRightSpeed();
+//
+//    //char s[50];
+//
+//    Serial.printf("%d,%d,%f,%f,%ld,%f,%ld\n", xPos,yPos,angle,leftSpeed, leftSpeedGoal,rightSpeed,rightSpeedGoal);
+    //int32_t right, left;
+    //motionControlSystem.getPWMS(left,right);
+    //Serial.println(right);
+    //float rotaProp, rotaDer, rotaInt;
+    //motionControlSystem.getRotationErrors(rotaProp, rotaInt, rotaDer);
+    //Serial.println(rotaInt);
+}
+
+void ORDER_rawposdataSpeed::impl(Args args)
+{
+    orderManager.motionControlSystem.queryRawPosDataSpeed();
+    long leftSpeedGoal, rightSpeedGoal;
     orderManager.motionControlSystem.getSpeedGoals(leftSpeedGoal, rightSpeedGoal);
 
     int16_t xPos = orderManager.motionControlSystem.getX();
@@ -228,6 +251,31 @@ void ORDER_rawposdata::impl(Args args)
     //motionControlSystem.getRotationErrors(rotaProp, rotaInt, rotaDer);
     //Serial.println(rotaInt);
 }
+
+void ORDER_rawposdataPos::impl(Args args)
+{
+    orderManager.motionControlSystem.queryRawPosDataPos();
+    long leftSpeedGoal, rightSpeedGoal;
+    orderManager.motionControlSystem.getSpeedGoals(leftSpeedGoal, rightSpeedGoal);
+
+    int16_t xPos = orderManager.motionControlSystem.getX();
+    int16_t yPos = orderManager.motionControlSystem.getY();
+    float angle = orderManager.motionControlSystem.getAngle();
+    float leftSpeed = orderManager.motionControlSystem.getLeftSpeed();
+    float rightSpeed = orderManager.motionControlSystem.getRightSpeed();
+
+    //char s[50];
+
+    Serial.printf("%d,%d,%f,%f,%ld,%f,%ld\n", xPos,yPos,angle,leftSpeed, leftSpeedGoal,rightSpeed,rightSpeedGoal);
+    //int32_t right, left;
+    //motionControlSystem.getPWMS(left,right);
+    //Serial.println(right);
+    //float rotaProp, rotaDer, rotaInt;
+    //motionControlSystem.getRotationErrors(rotaProp, rotaInt, rotaDer);
+    //Serial.println(rotaInt);
+}
+
+
 
 void ORDER_reseteth::impl(Args args)
 {

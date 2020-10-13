@@ -151,6 +151,10 @@ ORDER(cod,0);
  * @Description: Retourne, dans l'ordre: x,y,angle, v_g, cible v_g, v_d, cible v_d.
  */
 ORDER(rawposdata,0);
+
+ORDER(rawposdataSpeed, 0);
+ORDER(rawposdataPos, 0);
+
 /**
  * @Description: Force un reset du module ethernet.
  */

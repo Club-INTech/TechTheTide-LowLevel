@@ -77,6 +77,8 @@ a été mit en place.
 |       cv1        |                Active l'asservissement en vitesse.                 |                                                               |
 |       cod        |                   Affiche les ticks de codeuse.                    |                                                               |
 |    rawposdata    | Retourne, dans l'ordre: x,y,angle, v_g, cible v_g, v_d, cible v_d. |                                                               |
+| rawposdataSpeed  |                                                                    |                                                               |
+|  rawposdataPos   |                                                                    |                                                               |
 |     reseteth     |                 Force un reset du module ethernet.                 |                                                               |
 |  disableTorque   |              Désactive le couple du bras sélectionné.              |                 Côté du bras ("right"/"left")                 |
 |   enableTorque   |               Active le couple du bras sélectionné.                |                 Côté du bras ("right"/"left")                 |
