@@ -59,7 +59,8 @@ void __attribute__((noreturn)) loop() {
 	pinMode(RIGHT_VALVE_PIN,OUTPUT);
 	digitalWrite(RIGHT_VALVE_PIN,LOW);*/
 
-    /* InterruotStackPrint */
+    /* Interrup
+     * tStackPrint */
     InterruptStackPrint& interruptStackPrint = InterruptStackPrint::Instance();
 
     // MotionControlSystem interrupt on timer
@@ -87,7 +88,7 @@ void __attribute__((noreturn)) loop() {
     // FIXME: Pour le débug
     ActuatorsMgr::Instance().initTorques();
     Serial.println("Dynamixels OK");
-    MCS::Instance().sendParametersToCarteMCS();
+    //MCS::Instance().sendParametersToCarteMCS();
     Serial.println("Setup DONE");
 
 	Serial.println("Starting...");
@@ -108,8 +109,11 @@ void __attribute__((noreturn)) loop() {
 	orderMgr.execute("montlhery");
 	orderMgr.execute("av");
 
+    //orderMgr.execute("d 1000");
+	//orderMgr.execute("t 3.14");
+
     while (true) {
-        if(time % 100 == 0) {
+        if(time % 10 == 0) {
             orderMgr.execute("rawposdata");
 //            orderMgr.execute("cod");
         }

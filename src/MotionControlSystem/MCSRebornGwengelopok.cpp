@@ -42,9 +42,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(2, 0, 0, 0);//0.3 0    0.25   0.22
+    leftSpeedPID.setTunings(0.3, 0.25, 0.22, 0);//0.3 0    0.25   0.22
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(1, 0, 0, 0);//0.25 0    0.22    0.18
+    rightSpeedPID.setTunings(0.25, 0.22, 0.18, 0);//0.25 0    0.22    0.18
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -96,7 +96,7 @@ void MCS::initSettings() {
 
 
     /* mm/s */
-    controlSettings.maxTranslationSpeed = 1000;
+    controlSettings.maxTranslationSpeed = 500;
     controlSettings.tolerancySpeed = 5;
 
     /* rad */
