@@ -106,15 +106,32 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
-	orderMgr.execute("montlhery");
-	orderMgr.execute("av");
+	/**orderMgr.execute("montlhery");
 
-    //orderMgr.execute("d 1000");
-	//orderMgr.execute("t 3.14");
+	while(time < 2100) {
+
+        if (time < 2000) {
+            orderMgr.execute("av");
+        }
+        else {
+            orderMgr.execute("sstop");
+        }
+
+        time++;
+
+    } **/
+
+   // orderMgr.execute("d 1000") ;
+    //orderMgr.execute("t 1.57");
+    //orderMgr.execute("t 1.57");
+    //orderMgr.execute("t 1.57");
+    //orderMgr.execute("t 1.57");
+    //orderMgr.execute("t 3.14");
+
 
     while (true) {
         if(time % 10 == 0) {
-            orderMgr.execute("rawposdata");
+             orderMgr.execute("rawposdata");
 //            orderMgr.execute("cod");
         }
 

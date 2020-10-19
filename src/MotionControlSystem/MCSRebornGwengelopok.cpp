@@ -42,9 +42,9 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
 #elif defined(SLAVE)
 
 /* asserv en vitesse */
-    leftSpeedPID.setTunings(0.3, 0.25, 0.22, 0);//0.3 0    0.25   0.22
+    leftSpeedPID.setTunings(0.375, 0.00007, 50, 0);//0.3 0    0.25   0.22
     leftSpeedPID.enableAWU(false);
-    rightSpeedPID.setTunings(0.25, 0.22, 0.18, 0);//0.25 0    0.22    0.18
+    rightSpeedPID.setTunings(0.335, 0.00003, 50, 0);//0.25 0    0.22    0.18
     rightSpeedPID.enableAWU(false);
 
     /*
@@ -54,10 +54,10 @@ MCS::MCS(): leftMotor(Side::LEFT), rightMotor(Side::RIGHT)  {
     rightSpeedPID.enableAWU(false);
 */
 /* asserv en translation */
-    translationPID.setTunings(2.75,0,5,0);//2.75  0  5
+    translationPID.setTunings(0,0,0,0);//2.75  0  5
     translationPID.enableAWU(false);
 /* asserv en rotation */
-    rotationPID.setTunings(3.2,0.0000,0,0);  //3.2  0  0
+    rotationPID.setTunings(0,0,0,0);  //3.2  0  0
     rotationPID.enableAWU(false);
 
 #endif
@@ -96,7 +96,7 @@ void MCS::initSettings() {
 
 
     /* mm/s */
-    controlSettings.maxTranslationSpeed = 500;
+    controlSettings.maxTranslationSpeed = 100;
     controlSettings.tolerancySpeed = 5;
 
     /* rad */
@@ -124,8 +124,8 @@ void MCS::initSettings() {
 #if defined(MAIN)
     controlSettings.tolerancyDerivative = 7;
 #elif defined(SLAVE)
-    //controlSettings.tolerancyDerivative = 0.0000001; //à laisser très petit sinon le robot ne s'arrete pas
-    controlSettings.tolerancyDerivative = 1; //à laisser très petit sinon le robot ne s'arrete pas
+    controlSettings.tolerancyDerivative = 0.0000001; //à laisser très petit sinon le robot ne s'arrete pas
+    //controlSettings.tolerancyDerivative = 1; //à laisser très petit sinon le robot ne s'arrete pas
 #endif
 
     /* patate */
