@@ -9,9 +9,14 @@ void ActuatorsMgr::init()
 {
     dynamixelManager = new DynamixelManager(PIN_RX_DYNAMIXEL,PIN_TX_DYNAMIXEL, &DebugSerial);
 
+    motor0 = (XL430*) dynamixelManager->createMotor(0, XL430GeneratorFunction);//new XL430(1,*manager);
+    motor1 = (XL430*) dynamixelManager->createMotor(1, XL430GeneratorFunction);//new XL430(1,*manager);
+    motor2 = (XL430*) dynamixelManager->createMotor(2, XL430GeneratorFunction);//new XL430(2,*manager);
+    motor3 = (XL430*) dynamixelManager->createMotor(3, XL430GeneratorFunction);//new XL430(3,*manager);
+    motor4 = (XL430*) dynamixelManager->createMotor(4, XL430GeneratorFunction);//new XL430(4,*manager);
+    motor5 = (XL430*) dynamixelManager->createMotor(5, XL430GeneratorFunction);//new XL430(5,*manager);
 
-
-//    rightArm = new Arm<XL430>("right", *dynamixelManager, new XL430[3]{*motor1, *motor2, *motor3});
+    rightArm = new Arm<XL430>("right", *dynamixelManager, new XL430[3]{*motor1, *motor2, *motor3});
 
 
 
@@ -35,12 +40,7 @@ void ActuatorsMgr::init()
 
 #elif defined(SLAVE)
 
-    motor0 = (XL430*) dynamixelManager->createMotor(0, XL430GeneratorFunction);//new XL430(1,*manager);
-    motor1 = (XL430*) dynamixelManager->createMotor(1, XL430GeneratorFunction);//new XL430(1,*manager);
-    motor2 = (XL430*) dynamixelManager->createMotor(2, XL430GeneratorFunction);//new XL430(2,*manager);
-    motor3 = (XL430*) dynamixelManager->createMotor(3, XL430GeneratorFunction);//new XL430(3,*manager);
-    motor4 = (XL430*) dynamixelManager->createMotor(4, XL430GeneratorFunction);//new XL430(4,*manager);
-    motor5 = (XL430*) dynamixelManager->createMotor(5, XL430GeneratorFunction);//new XL430(5,*manager);
+
 
 #endif
 }
@@ -50,6 +50,12 @@ void stepperInterrupt(HardwareTimer* hardwareTimer) {
 }
 
 void ActuatorsMgr::initTorques() {
+    motor0->toggleTorque(true);
+    motor1->toggleTorque(true);
+    motor2->toggleTorque(true);
+    motor3->toggleTorque(true);
+    motor4->toggleTorque(true);
+    motor5->toggleTorque(true);
 // FIXME : À compléter pour utiliser correctement les moteurs
 }
 

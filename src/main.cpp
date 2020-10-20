@@ -131,7 +131,7 @@ void __attribute__((noreturn)) loop() {
 
     while (true) {
         if(time % 10 == 0) {
-             orderMgr.execute("rawposdata");
+//             orderMgr.execute("rawposdata");
 //            orderMgr.execute("cod");
         }
 

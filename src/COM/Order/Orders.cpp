@@ -818,6 +818,7 @@ void ORDER_XLm::impl(Args args)
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
     uint8_t id = OrderManager::parseInt(args[0]);
     XL430* motor = (XL430*)manager.dynamixelManager->getMotor(id);
+    motor->toggleTorque(true);
     motor->setGoalAngle(OrderManager::parseFloat(args[1])+xlOffsets[id-1]);
 }
 
