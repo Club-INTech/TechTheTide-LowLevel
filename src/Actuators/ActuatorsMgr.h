@@ -38,9 +38,7 @@ public:
 
     // TODO : Généraliser
     // Liste des moteurs du bras 1
-	XL430* motor1;
-    XL430* motor2;
-	XL430* motor3;
+
 
     Arm<XL430>* rightArm;
     Servo* motFlag;
@@ -48,9 +46,12 @@ public:
 #if defined(MAIN)
 
     // Liste des moteurs du bras 2
-	XL430* motor4;
-    XL430* motor5;
-	XL430* motor6;
+    XL430* motor0;
+    XL430* motor1;
+    XL430* motor2;
+	XL430* motor3;
+    XL430* motor4;
+	XL430* motor5;
 
 	Arm<XL430>* leftArm;
     Servo* motRight;
@@ -63,9 +64,12 @@ public:
 #elif defined(SLAVE)
 
     //XL qui pousse les palets
+    XL430* motor0;
+    XL430* motor1;
+    XL430* motor2;
+	XL430* motor3;
 	XL430* motor4;
 	XL430* motor5;
-	XL430* motor6;
 
 #endif
 

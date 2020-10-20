@@ -709,6 +709,9 @@ void ORDER_BrasStock::impl(Args args)
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
     XL430* mot = nullptr;
     switch (OrderManager::parseInt(args[0])){
+        case 0:
+            mot = manager.motor0;
+            break;
         case 1:
             mot = manager.motor1;
             break;
@@ -724,11 +727,11 @@ void ORDER_BrasStock::impl(Args args)
         case 5:
             mot = manager.motor5;
             break;
-        case 6:
-            mot = manager.motor6;
-            break;
     }
-    if(mot) mot->setGoalAngle(0);
+    if(mot) {
+        mot->toggleTorque(true);
+        mot->setGoalAngle(235.0f);
+    }
 }
 
 void ORDER_BrasEcueil::impl(Args args)
@@ -736,6 +739,9 @@ void ORDER_BrasEcueil::impl(Args args)
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
     XL430* mot = nullptr;
     switch (OrderManager::parseInt(args[0])){
+        case 0:
+            mot = manager.motor0;
+            break;
         case 1:
             mot = manager.motor1;
             break;
@@ -751,11 +757,11 @@ void ORDER_BrasEcueil::impl(Args args)
         case 5:
             mot = manager.motor5;
             break;
-        case 6:
-            mot = manager.motor6;
-            break;
     }
-    if(mot) mot->setGoalAngle(90);
+    if(mot) {
+        mot->toggleTorque(true);
+        mot->setGoalAngle(200.0f);
+    }
 }
 
 void ORDER_BrasDepot::impl(Args args)
@@ -763,6 +769,9 @@ void ORDER_BrasDepot::impl(Args args)
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
     XL430* mot = nullptr;
     switch (OrderManager::parseInt(args[0])){
+        case 0:
+            mot = manager.motor0;
+            break;
         case 1:
             mot = manager.motor1;
             break;
@@ -778,11 +787,11 @@ void ORDER_BrasDepot::impl(Args args)
         case 5:
             mot = manager.motor5;
             break;
-        case 6:
-            mot = manager.motor6;
-            break;
     }
-    if(mot) mot->setGoalAngle(100);
+    if(mot) {
+        mot->toggleTorque(true);
+        mot->setGoalAngle(150.0f);
+    }
 }
 
 void ORDER_oust::impl(Args args)

@@ -115,8 +115,8 @@ constexpr uint8_t SICK_PINS[NBR_OF_DISTANCE_SENSOR] = {
 };
 
 
-constexpr uint8_t PIN_TX_DYNAMIXEL = 0;
-constexpr uint8_t PIN_RX_DYNAMIXEL = 0;
+constexpr uint8_t PIN_TX_DYNAMIXEL = D9;
+constexpr uint8_t PIN_RX_DYNAMIXEL = D9;
 
 // TechTheTide
 /* Ascenceurs */
