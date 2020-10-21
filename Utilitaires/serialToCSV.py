@@ -5,6 +5,9 @@ import signal
 import sys as suus  # SUUS
 import time
 
+if "Utilities" != os.getcwd().split('/')[-1]:
+	print("Error! this script must be run from the Utilities directory")
+	exit(-1)
 print("Warning! this script must be run from the Utilities directory")
 
 
