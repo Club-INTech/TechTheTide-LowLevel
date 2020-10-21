@@ -760,7 +760,7 @@ void ORDER_BrasEcueil::impl(Args args)
     }
     if(mot) {
         mot->toggleTorque(true);
-        mot->setGoalAngle(200.0f);
+        mot->setGoalAngle(165.0f);
     }
 }
 
@@ -790,7 +790,7 @@ void ORDER_BrasDepot::impl(Args args)
     }
     if(mot) {
         mot->toggleTorque(true);
-        mot->setGoalAngle(150.0f);
+        mot->setGoalAngle(140.0f);
     }
 }
 
@@ -819,7 +819,8 @@ void ORDER_XLm::impl(Args args)
     uint8_t id = OrderManager::parseInt(args[0]);
     XL430* motor = (XL430*)manager.dynamixelManager->getMotor(id);
     motor->toggleTorque(true);
-    motor->setGoalAngle(OrderManager::parseFloat(args[1])+xlOffsets[id-1]);
+    motor->changeLED(true);
+    motor->setGoalAngle(OrderManager::parseFloat(args[1]));
 }
 
 void ORDER_XLs::impl(Args args)
