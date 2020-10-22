@@ -52,6 +52,11 @@ public:
 	XL430* motor3;
     XL430* motor4;
 	XL430* motor5;
+    XL430* motor6;
+    XL430* motor7;
+    XL430* motor8;
+    XL430* motor9;
+    XL430* motor10;
 
 	Arm<XL430>* leftArm;
     Servo* motRight;
@@ -70,6 +75,11 @@ public:
 	XL430* motor3;
 	XL430* motor4;
 	XL430* motor5;
+    XL430* motor6;
+    XL430* motor7;
+    XL430* motor8;
+    XL430* motor9;
+    XL430* motor10;
 
 #endif
 

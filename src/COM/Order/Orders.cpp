@@ -629,10 +629,17 @@ void ORDER_BrasOut::impl(Args args) {
 
 void ORDER_BrasIn::impl(Args args) {
 
-    ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    XL430* mot = manager.motor4;
-    mot->changeLED(true);
-    mot->setGoalAngle(0.0f);
+//    ActuatorsMgr& manager = ActuatorsMgr::Instance();
+//#if defined(MAIN)
+//    if ( !strcmp(args[1],"left"))
+//        XL430* mot = manager.motor9;
+//    else if (!strcmp(args[1],"right"))
+//        XL430* mot = manager.motor10;
+//#elif defined(SLAVE)
+//
+//#endif
+//    mot->changeLED(true);
+//    mot->setGoalAngle(0.0f);
 }
 
 void ORDER_Suck::impl(Args args) {
@@ -683,17 +690,24 @@ void ORDER_Suck::impl(Args args) {
 void ORDER_LiftUp::impl(Args args)
 {
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    XL430* mot = manager.motor0;
+    XL430* mot = manager.motor8;
+    mot->toggleTorque(false);
+    mot->setOperatingMode(4);
     mot->toggleTorque(true);
-    mot->setGoalAngle(235.0f);
+
+    mot->setGoalAngle(0.0f);
+
 
 }
 void ORDER_LiftDown::impl(Args args)
 {
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    XL430* mot = manager.motor0;
+    XL430* mot = manager.motor8;
+    mot->toggleTorque(false);
+    mot->setOperatingMode(4);
     mot->toggleTorque(true);
-    mot->setGoalAngle(0.0f);
+
+    mot->setGoalAngle(400.0f);
 }
 
 void ORDER_Gate::impl(Args args)

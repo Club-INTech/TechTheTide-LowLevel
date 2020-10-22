@@ -50,6 +50,7 @@ constexpr uint8_t GET_XYO_RPC_ID = 21;
 constexpr uint8_t DEBUG_RPC_ID = 22;
 constexpr uint8_t GET_BOARD_TIME_RPC_ID = 23;
 constexpr uint8_t SEND_PARAMETERS_TO_CARTE_MCS = 24;
+constexpr uint8_t SET_EXPECTED_WALL_IMPACT = 27;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -75,6 +76,7 @@ public:
     void controlledTranslation(bool);
     void controlledRotation(bool);
     void setForcedMovement(bool);
+    void setExpectedWallImpact();
     void setTranslationSpeed(float);
     void setRotationSpeed(float);
     void setMaxTranslationSpeed(float);

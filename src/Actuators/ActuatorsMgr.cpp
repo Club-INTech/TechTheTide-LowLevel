@@ -15,6 +15,11 @@ void ActuatorsMgr::init()
     motor3 = (XL430*) dynamixelManager->createMotor(3, XL430GeneratorFunction);//new XL430(3,*manager);
     motor4 = (XL430*) dynamixelManager->createMotor(4, XL430GeneratorFunction);//new XL430(4,*manager);
     motor5 = (XL430*) dynamixelManager->createMotor(5, XL430GeneratorFunction);//new XL430(5,*manager);
+    motor6 = (XL430*) dynamixelManager->createMotor(6, XL430GeneratorFunction);//new XL430(1,*manager);
+    motor7 = (XL430*) dynamixelManager->createMotor(7, XL430GeneratorFunction);//new XL430(1,*manager);
+    motor8 = (XL430*) dynamixelManager->createMotor(8, XL430GeneratorFunction);//new XL430(2,*manager);
+    motor9 = (XL430*) dynamixelManager->createMotor(9, XL430GeneratorFunction);//new XL430(3,*manager);
+    motor10 = (XL430*) dynamixelManager->createMotor(10, XL430GeneratorFunction);//new XL430(4,*manager);
 
     rightArm = new Arm<XL430>("right", *dynamixelManager, new XL430[3]{*motor1, *motor2, *motor3});
 
@@ -56,6 +61,11 @@ void ActuatorsMgr::initTorques() {
     motor3->toggleTorque(true);
     motor4->toggleTorque(true);
     motor5->toggleTorque(true);
+    motor6->toggleTorque(true);
+    motor7->toggleTorque(true);
+    motor8->toggleTorque(true);
+    motor9->toggleTorque(true);
+    motor10->toggleTorque(true);
 // FIXME : À compléter pour utiliser correctement les moteurs
 }
 

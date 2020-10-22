@@ -445,7 +445,7 @@ void MCS::getSpeedGoals(long &leftGoal, long &rightGoal) {
 
 void MCS::expectWallImpact()
 {
-    expectedWallImpact = true;
+    I2CC::executeRPC(MCS_SLAVE_ID, SET_EXPECTED_WALL_IMPACT, nullptr);
 }
 
 bool MCS::sentMoveAbnormal() {
