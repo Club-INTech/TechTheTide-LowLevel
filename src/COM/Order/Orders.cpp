@@ -554,17 +554,7 @@ void ORDER_ptpdemoseq::impl(Args args)
 
 // TODO: pour les 2 qui suivent: électrovannes?
 
-void ORDER_FlagDown::impl(Args args) {
-    ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    Servo* motorFlag = manager.motFlag;
-    motorFlag->write(0);
-}
 
-void ORDER_FlagUp::impl(Args args) {
-    ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    Servo* motorFlag = manager.motFlag;
-    motorFlag->write(90);
-}
 
 void ORDER_Valve::impl(Args args)
 {
@@ -611,13 +601,33 @@ void ORDER_Valve::impl(Args args)
 
 void ORDER_DiodeOn::impl(Args args){
 
-    executeRPC(4, 4, nullptr);
+    executeRPC(ID_MAIN, 4, nullptr);
 }
 void ORDER_DiodeOff::impl(Args args){
-    executeRPC(4, 5, nullptr);
+    executeRPC(ID_MAIN, 5, nullptr);
 }
 
+void ORDER_FlagDown::impl(Args args) {
+    #if defined(MAIN)
+    executeRPC(ID_MAIN, ID_ORDER_FLAG_DOWN, nullptr);
 
+    #elif defined(SLAVE)
+    ActuatorsMgr& manager = ActuatorsMgr::Instance();
+    Servo* motorFlag = manager.motFlag;
+    motorFlag->write(0);
+    #endif
+}
+
+void ORDER_FlagUp::impl(Args args) {
+    #if defined(MAIN)
+    executeRPC(ID_MAIN, ID_ORDER_FLAG_UP, nullptr);
+
+    #elif defined(SLAVE)
+    ActuatorsMgr& manager = ActuatorsMgr::Instance();
+    Servo* motorFlag = manager.motFlag;
+    motorFlag->write(90);
+    #endif
+}
 
 void ORDER_BrasOut::impl(Args args) {
 
