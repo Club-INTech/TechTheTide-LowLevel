@@ -759,7 +759,7 @@ void ORDER_BrasStock::impl(Args args)
     }
     if(mot) {
         mot->toggleTorque(true);
-        mot->setGoalAngle(235.0f);
+        mot->setGoalAngle(240.0f);
     }
 }
 
