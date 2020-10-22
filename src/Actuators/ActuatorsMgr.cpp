@@ -22,14 +22,14 @@ void ActuatorsMgr::init()
 
 #if defined(MAIN)
 
-    motor0 = (XL430*) dynamixelManager->createMotor(0, XL430GeneratorFunction);//new XL430(1,*manager);
-    motor1 = (XL430*) dynamixelManager->createMotor(1, XL430GeneratorFunction);//new XL430(1,*manager);
-    motor2 = (XL430*) dynamixelManager->createMotor(2, XL430GeneratorFunction);//new XL430(2,*manager);
-    motor3 = (XL430*) dynamixelManager->createMotor(3, XL430GeneratorFunction);//new XL430(3,*manager);
-    motor4 = (XL430*) dynamixelManager->createMotor(4, XL430GeneratorFunction);//new XL430(4,*manager);
-    motor5 = (XL430*) dynamixelManager->createMotor(5, XL430GeneratorFunction);//new XL430(5,*manager);
-
-//    leftArm = new Arm<XL430>("left", *dynamixelManager, new XL430[3]{*motor1,*motor2,*motor3});
+//    motor0 = (XL430*) dynamixelManager->createMotor(0, XL430GeneratorFunction);//new XL430(1,*manager);
+//    motor1 = (XL430*) dynamixelManager->createMotor(1, XL430GeneratorFunction);//new XL430(1,*manager);
+//    motor2 = (XL430*) dynamixelManager->createMotor(2, XL430GeneratorFunction);//new XL430(2,*manager);
+//    motor3 = (XL430*) dynamixelManager->createMotor(3, XL430GeneratorFunction);//new XL430(3,*manager);
+//    motor4 = (XL430*) dynamixelManager->createMotor(4, XL430GeneratorFunction);//new XL430(4,*manager);
+//    motor5 = (XL430*) dynamixelManager->createMotor(5, XL430GeneratorFunction);//new XL430(5,*manager);
+//
+    leftArm = new Arm<XL430>("left", *dynamixelManager, new XL430[3]{*motor1,*motor2,*motor3});
 
     motRight->attach(MG_COULOIR_D);
     motLeft->attach(MG_COULOIR_G);

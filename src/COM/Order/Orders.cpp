@@ -611,10 +611,10 @@ void ORDER_Valve::impl(Args args)
 
 void ORDER_DiodeOn::impl(Args args){
 
-    executeRPC(1, 4, nullptr);
+    executeRPC(4, 4, nullptr);
 }
 void ORDER_DiodeOff::impl(Args args){
-    executeRPC(1, 5, nullptr);
+    executeRPC(4, 5, nullptr);
 }
 
 
@@ -683,12 +683,17 @@ void ORDER_Suck::impl(Args args) {
 void ORDER_LiftUp::impl(Args args)
 {
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    manager.stepper->step(500);
+    XL430* mot = manager.motor0;
+    mot->toggleTorque(true);
+    mot->setGoalAngle(235.0f);
+
 }
 void ORDER_LiftDown::impl(Args args)
 {
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    manager.stepper->step(-500);
+    XL430* mot = manager.motor0;
+    mot->toggleTorque(true);
+    mot->setGoalAngle(0.0f);
 }
 
 void ORDER_Gate::impl(Args args)
