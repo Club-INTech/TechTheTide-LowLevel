@@ -106,7 +106,7 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
-	/**orderMgr.execute("montlhery");
+/**	orderMgr.execute("montlhery");
 
 	while(time < 2100) {
 
@@ -119,23 +119,45 @@ void __attribute__((noreturn)) loop() {
 
         time++;
 
-    } **/
+    }**/
 
-   // orderMgr.execute("d 1000") ;
-    //orderMgr.execute("t 1.57");
+
+    //  orderMgr.execute("d 500") ;
+     // orderMgr.execute("t 1.57");
     //orderMgr.execute("t 1.57");
     //orderMgr.execute("t 1.57");
     //orderMgr.execute("t 1.57");
     //orderMgr.execute("t 3.14");
 
+   /**
+    orderMgr.execute("t 1.57");
+    orderMgr.execute("d 185");
+    orderMgr.execute("t -1.57");
+    orderMgr.execute("d 225");
+    orderMgr.execute("t 1.57");
+    orderMgr.execute("d 305");
+    orderMgr.execute("t -1.57");
+    orderMgr.execute("d 575");
+    orderMgr.execute("t -1.57");
+    orderMgr.execute("d 875");
+    orderMgr.execute("t 1.57");
+    orderMgr.execute("d 775");
+    orderMgr.execute("t -1.57");
+    orderMgr.execute("d 700");
+    orderMgr.execute("d -700");**/
 
     while (true) {
-        if(time % 10 == 0) {
-//             orderMgr.execute("rawposdata");
-//            orderMgr.execute("cod");
+       if(time == 100) {
+            orderMgr.execute("rawposdata");
+//          orderMgr.execute("cod");
+ //       orderMgr.execute("d 500");
         }
+      /** if(time == 50000) {
+           orderMgr.execute("stop");
+           orderMgr.execute("stop");
+       }**/
 
-        if(time == 5000) {
+       /** if(time == 5000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
@@ -145,17 +167,13 @@ void __attribute__((noreturn)) loop() {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
-        }
+        }**/
 
-        if(time % 100 == 0) {
-//            orderMgr.execute("cod");
-        }
         interruptStackPrint.print();
         orderMgr.communicate();
 
         time++;
     }
-
 }
 
                    /*``.           `-:--.`

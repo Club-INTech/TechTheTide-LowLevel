@@ -180,6 +180,7 @@ private:
     float angleOffset;
     bool expectedWallImpact;
 
+    bool notMoving=true;
     Average<float, 100> averageLeftSpeed;
     Average<float, 100> averageRightSpeed;
 #if defined(MAIN)
