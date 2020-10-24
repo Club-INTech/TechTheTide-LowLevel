@@ -292,8 +292,13 @@ void MCS::sendPositionUpdate() {
     I2CC::getData(millisValue, returnPosUpdateBuffer);
 
     I2CC::getData(robotStatus.notMoving, returnPosUpdateBuffer);
+
+    I2CC::getData(manageStopped, returnPosUpdateBuffer);
     // FIXME : Does not seem to work properly
     ComMgr::Instance().printfln(POSITION_HEADER, "%f %f %f %li", robotStatus.x, robotStatus.y, robotStatus.orientation, millis());
+    if(manageStopped){
+        ComMgr::Instance().printfln(EVENT_HEADER, "stoppedMoving");
+    }
     if(!notMoving && robotStatus.notMoving){
         ComMgr::Instance().printfln(EVENT_HEADER, "stoppedMoving");
     }

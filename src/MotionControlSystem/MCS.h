@@ -192,6 +192,7 @@ private:
 #endif
 
     bool sequentialMovement;
+    bool manageStopped;
     PointToPointTrajectory trajectory;
 
     // Timer entre translation et rotation pour les goto
