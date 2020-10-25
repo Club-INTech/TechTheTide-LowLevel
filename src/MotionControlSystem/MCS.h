@@ -59,6 +59,8 @@ class MCS : public Singleton<MCS>
 public:
     MCS();
 
+
+
     void initEncoders();
 
     void stop();

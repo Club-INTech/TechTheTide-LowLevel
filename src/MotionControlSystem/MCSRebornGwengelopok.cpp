@@ -75,7 +75,7 @@ void MCS::initCommunicationBuffers() {
     returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
-    returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
+    returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4 + sizeof(bool)*1);
     returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
     boardTime = new I2CC::BufferedData(sizeof(int32_t)*2);
     sendParametersToCarteMCSBuffer = new I2CC::BufferedData(sizeof(float)*8);
