@@ -632,24 +632,41 @@ void ORDER_FlagUp::impl(Args args) {
 void ORDER_BrasOut::impl(Args args) {
 
     ActuatorsMgr& manager = ActuatorsMgr::Instance();
-    XL430* mot = manager.motor4;
-    mot->changeLED(true);
-    mot->setGoalAngle(90.0f);
+    XL430* mot = nullptr;
+
+    if ( !strcmp(args[0],"left")) {
+        mot = manager.motor9;
+        mot->toggleTorque(true);
+        mot->setGoalAngle(90.0f);
+    }
+    else if ( !strcmp(args[0],"right")){
+        mot = manager.motor10;
+        mot->toggleTorque(true);
+        mot->setGoalAngle(270.0f);
+    }
+    else {
+        orderManager.highLevel.printfln(STD_HEADER, "ERREUR::L'argument donné doit être gauche ou droite");
+    }
 }
 
 void ORDER_BrasIn::impl(Args args) {
 
-//    ActuatorsMgr& manager = ActuatorsMgr::Instance();
-//#if defined(MAIN)
-//    if ( !strcmp(args[1],"left"))
-//        XL430* mot = manager.motor9;
-//    else if (!strcmp(args[1],"right"))
-//        XL430* mot = manager.motor10;
-//#elif defined(SLAVE)
-//
-//#endif
-//    mot->changeLED(true);
-//    mot->setGoalAngle(0.0f);
+    ActuatorsMgr& manager = ActuatorsMgr::Instance();
+    XL430* mot = nullptr;
+
+    if ( !strcmp(args[0],"left")) {
+        mot = manager.motor9;
+        mot->toggleTorque(true);
+        mot->setGoalAngle(180.0f);
+    }
+    else if ( !strcmp(args[0],"right")){
+        mot = manager.motor10;
+        mot->toggleTorque(true);
+        mot->setGoalAngle(180.0f);
+    }
+    else {
+        orderManager.highLevel.printfln(STD_HEADER, "ERREUR::L'argument donné doit être gauche ou droite");
+    }
 }
 
 void ORDER_Suck::impl(Args args) {
