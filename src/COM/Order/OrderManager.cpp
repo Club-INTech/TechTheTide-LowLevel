@@ -63,9 +63,9 @@ void OrderManager::communicate() {
         executeHooks();
     }
 // FIXME : Pour le debug
-//    if (sendPos.check()) {
-//        motionControlSystem.sendPositionUpdate();
-//    }
+    if (sendPos.check()) {
+        motionControlSystem.sendPositionUpdate();
+    }
  }
 
  void OrderManager::execute(const char* orderToExecute)

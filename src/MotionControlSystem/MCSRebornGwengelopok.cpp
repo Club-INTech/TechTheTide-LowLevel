@@ -75,7 +75,7 @@ void MCS::initCommunicationBuffers() {
     returnDataTicks = new I2CC::BufferedData(sizeof(int32_t)*2);
     returnRawPosDataBuffer = new I2CC::BufferedData(sizeof(int16_t)*2+ sizeof(float)*3+ sizeof(long)*2);
     returnGotoBuffer = new I2CC::BufferedData(sizeof(char)*200);
-    returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4);
+    returnPosUpdateBuffer = new I2CC::BufferedData(sizeof(float)*3 + 4 + sizeof(bool)*1);
     returnXYO = new I2CC::BufferedData(sizeof(int16_t)*2 + sizeof(float));
     boardTime = new I2CC::BufferedData(sizeof(int32_t)*2);
     sendParametersToCarteMCSBuffer = new I2CC::BufferedData(sizeof(float)*8);
@@ -291,9 +291,20 @@ void MCS::sendPositionUpdate() {
     uint32_t millisValue;
     I2CC::getData(millisValue, returnPosUpdateBuffer);
 
-    I2CC::getData(robotStatus.notMoving, returnPosUpdateBuffer);
+    I2CC::getData<bool>(robotStatus.notMoving, returnPosUpdateBuffer);
+
+    I2CC::getData<bool>(manageStopped, returnPosUpdateBuffer);
     // FIXME : Does not seem to work properly
-    ComMgr::Instance().printfln(POSITION_HEADER, "%f %f %f %li", robotStatus.x, robotStatus.y, robotStatus.orientation, millis());
+    ComMgr::Instance().printfln(POSITION_HEADER, "%f %f %f %li | %d |", robotStatus.x, robotStatus.y, robotStatus.orientation, millis(),manageStopped);
+    if(manageStopped){
+        ComMgr::Instance().printfln(EVENT_HEADER, "stoppedMoving");
+        manageStopped = false;
+    }
+    I2CC::putData<bool>(manageStopped,returnPosUpdateBuffer);
+    if(!notMoving && robotStatus.notMoving){
+        ComMgr::Instance().printfln(EVENT_HEADER, "stoppedMoving");
+    }
+    notMoving=robotStatus.notMoving;
 }
 
 void MCS::resetEncoders() {

@@ -180,6 +180,7 @@ private:
     float angleOffset;
     bool expectedWallImpact;
 
+    bool notMoving=true;
     Average<float, 100> averageLeftSpeed;
     Average<float, 100> averageRightSpeed;
 #if defined(MAIN)
@@ -191,6 +192,7 @@ private:
 #endif
 
     bool sequentialMovement;
+    bool manageStopped;
     PointToPointTrajectory trajectory;
 
     // Timer entre translation et rotation pour les goto
