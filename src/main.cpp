@@ -106,7 +106,7 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
-/**	orderMgr.execute("montlhery");
+/**orderMgr.execute("montlhery");
 
 	while(time < 2100) {
 
@@ -148,8 +148,8 @@ void __attribute__((noreturn)) loop() {
 
     while (true) {
        if(time == 100) {
-            orderMgr.execute("rawposdata");
-//          orderMgr.execute("cod");
+        //    orderMgr.execute("rawposdata");
+         //   orderMgr.execute("cod");
  //       orderMgr.execute("d 500");
         }
       /** if(time == 50000) {

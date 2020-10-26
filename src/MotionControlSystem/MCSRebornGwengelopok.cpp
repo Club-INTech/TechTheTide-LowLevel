@@ -291,7 +291,7 @@ void MCS::sendPositionUpdate() {
     uint32_t millisValue;
     I2CC::getData(millisValue, returnPosUpdateBuffer);
 
-    I2CC::getData<bool>(robotStatus.notMoving, returnPosUpdateBuffer);
+    I2CC::getData<MovementStatus>(robotStatus.notMoving, returnPosUpdateBuffer);
 
     I2CC::getData<bool>(manageStopped, returnPosUpdateBuffer);
     // FIXME : Does not seem to work properly
