@@ -503,3 +503,7 @@ uint64_t MCS::getControlBoardTimeMicros() {
 uint64_t MCS::getControlBoardTimeMillis() {
     return robotStatus.controlBoardTimeMillis;
 }
+
+void MCS::refreshInit() {
+    I2CC::executeRPC(MCS_SLAVE_ID, REFRESH_INIT, nullptr);
+}

@@ -51,6 +51,7 @@ constexpr uint8_t DEBUG_RPC_ID = 22;
 constexpr uint8_t GET_BOARD_TIME_RPC_ID = 23;
 constexpr uint8_t SEND_PARAMETERS_TO_CARTE_MCS = 24;
 constexpr uint8_t SET_EXPECTED_WALL_IMPACT = 27;
+constexpr uint8_t REFRESH_INIT = 28;
 
 // TODO : Tout docu
 // TODO : P'tet passer les config dans un fichier dans src/Config ?
@@ -85,6 +86,7 @@ public:
     void initSettings();
     void initStatus();
     void sendParametersToCarteMCS();
+    void refreshInit();
 
     /**
      * Initialise les différents BufferedData utilisés pour communiquer avec la carte Asserv'.

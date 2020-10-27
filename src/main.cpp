@@ -103,6 +103,8 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSCL(D1);
 	Wire.setSDA(D0);
 	Wire.begin();
+	MCS::Instance().refreshInit();
+
 
 	int time = 0;
 
@@ -145,6 +147,10 @@ void __attribute__((noreturn)) loop() {
     orderMgr.execute("t -1.57");
     orderMgr.execute("d 700");
     orderMgr.execute("d -700");**/
+
+//    orderMgr.execute("montlhery");
+//    orderMgr.execute("av");
+ //   orderMgr.execute("d 1000");
 
     while (true) {
        if(time == 100) {
