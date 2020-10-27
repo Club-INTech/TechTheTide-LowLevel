@@ -1019,9 +1019,9 @@ void ORDER_waitJumper::impl(Args args) {
     Serial.println("Waiting for jumper...");
 
 #if defined(MAIN)
-    digitalWrite(LED1, HIGH);
+    //digitalWrite(LED1, HIGH);
 #elif defined(SLAVE)
-    digitalWrite(LED1_1, LOW);
+    //digitalWrite(LED1_1, LOW);
 #endif
 
     // attente de front
@@ -1033,10 +1033,10 @@ void ORDER_waitJumper::impl(Args args) {
     }
     ComMgr::Instance().printfln(EVENT_HEADER, "gogogofast");
 #if defined(MAIN)
-    digitalWrite(LED1, LOW);
+    //digitalWrite(LED1, LOW);
 #elif defined(SLAVE)
-    digitalWrite(LED1_1, HIGH);
-    digitalWrite(LED1_2, LOW);
+//    digitalWrite(LED1_1, HIGH);
+//    digitalWrite(LED1_2, LOW);
 #endif
 }
 

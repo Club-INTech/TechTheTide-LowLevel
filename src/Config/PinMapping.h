@@ -26,7 +26,7 @@ constexpr uint8_t ENCODER_RIGHT_A = 25;
 constexpr uint8_t ENCODER_RIGHT_B = 32;
 
 /* CAPTEURS */
-constexpr uint8_t PIN_JMPR = 10;
+constexpr uint8_t PIN_JMPR = D11;
 constexpr uint8_t SICK_PINS[NBR_OF_DISTANCE_SENSOR] = {
         A2, // 1er
         A3, // 2e
@@ -107,7 +107,7 @@ constexpr uint8_t ENCODER_RIGHT_A = 29;
 
 
 /* CAPTEURS */
-constexpr uint8_t PIN_JMPR = 2;
+constexpr uint8_t PIN_JMPR = D11;
 constexpr uint8_t SICK_PINS[NBR_OF_DISTANCE_SENSOR] = {
         17, // 1er
         15, // 2e
