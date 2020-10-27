@@ -160,7 +160,7 @@ constexpr uint8_t LED3_3 = 23;
 
 // TechTheTide
 /* Drapeaux */
-constexpr uint8_t FLAG_PIN = 1;
+constexpr uint8_t FLAG_PIN = A2;
 
 #endif
 

@@ -44,8 +44,8 @@ void ActuatorsMgr::init()
     stepper->setSpeed(60);
 
 #elif defined(SLAVE)
-
-
+    motFlag = new Servo;
+    motFlag->attach(FLAG_PIN);
 
 #endif
 }
