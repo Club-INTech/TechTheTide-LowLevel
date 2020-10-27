@@ -150,14 +150,14 @@ void __attribute__((noreturn)) loop() {
        if(time == 100) {
             //orderMgr.execute("rawposdata");
             //orderMgr.execute("cod");
- //       orderMgr.execute("d 500");
+        //orderMgr.execute("d 1000");
         }
       /** if(time == 50000) {
            orderMgr.execute("stop");
            orderMgr.execute("stop");
        }**/
 
-      /**  if(time == 5000) {
+       /** if(time == 5000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
