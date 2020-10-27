@@ -121,7 +121,7 @@ void __attribute__((noreturn)) loop() {
 
         time++;
 
-    }**/
+    } **/
 
 
     //  orderMgr.execute("d 500") ;
@@ -154,9 +154,9 @@ void __attribute__((noreturn)) loop() {
 
     while (true) {
        if(time == 100) {
-        //    orderMgr.execute("rawposdata");
-         //   orderMgr.execute("cod");
- //       orderMgr.execute("d 500");
+            //orderMgr.execute("rawposdata");
+            //orderMgr.execute("cod");
+        //orderMgr.execute("d 1000");
         }
       /** if(time == 50000) {
            orderMgr.execute("stop");

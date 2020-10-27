@@ -186,8 +186,8 @@ private:
     Average<float, 100> averageLeftSpeed;
     Average<float, 100> averageRightSpeed;
 
-    Average<float, 10> averageRotationDerivativeError;
-    Average<float, 10> averageTranslationDerivativeError;
+    Average<float, 25> averageRotationDerivativeError;
+    Average<float, 25> averageTranslationDerivativeError;
 
 
     bool sequentialMovement;
