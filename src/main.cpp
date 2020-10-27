@@ -103,7 +103,7 @@ void __attribute__((noreturn)) loop() {
 	Wire.setSCL(D1);
 	Wire.setSDA(D0);
 	Wire.begin();
-	MCS::Instance().refreshInit();
+//	MCS::Instance().refreshInit();
 
 
 	int time = 0;
