@@ -121,7 +121,7 @@ void __attribute__((noreturn)) loop() {
 
         time++;
 
-    } **/
+    }**/
 
 
     //  orderMgr.execute("d 500") ;
@@ -154,16 +154,16 @@ void __attribute__((noreturn)) loop() {
 
     while (true) {
        if(time == 100) {
-            //orderMgr.execute("rawposdata");
+           // orderMgr.execute("rawposdata");
             //orderMgr.execute("cod");
-        //orderMgr.execute("d 1000");
+            //orderMgr.execute("t 1.57");
         }
       /** if(time == 50000) {
            orderMgr.execute("stop");
            orderMgr.execute("stop");
        }**/
 
-       /** if(time == 5000) {
+       /**if(time == 5000) {
             Serial.println("DATAEND");
             Serial.println("DATAEND");
             Serial.println("DATAEND");
