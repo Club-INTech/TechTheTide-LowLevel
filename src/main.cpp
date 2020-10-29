@@ -10,6 +10,7 @@
 #include "COM/Order/OrderManager.h"
 #include "COM/SlaveIDs.h"
 #include "I2CC.h"
+#include "Config/Defines.h"
 //#include "MotionControlSystem/HardwareEncoder_ISRDEF.h"
 
 /* Interruptions d'asservissements */
@@ -106,6 +107,9 @@ void __attribute__((noreturn)) loop() {
 
 	int time = 0;
 
+	int dureeMatch = 0;
+
+
 /**orderMgr.execute("montlhery");
 
 	while(time < 2100) {
@@ -145,6 +149,7 @@ void __attribute__((noreturn)) loop() {
     orderMgr.execute("t -1.57");
     orderMgr.execute("d 700");
     orderMgr.execute("d -700");**/
+    //orderMgr.execute("d 700");
 
     while (true) {
        if(time == 100) {

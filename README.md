@@ -128,7 +128,9 @@ a été mit en place.
 |     DiodeOff     |                                                                    |                                                               |
 |      LiftUp      |                         Monte l'ascenseur                          |                                                               |
 |     LiftDown     |                         Baisse l'ascenseur                         |                                                               |
-|       Gate       |                Bouge les portes du robot principal                 |                          angle voulu                          |
+|      Gate90      |                Bouge les portes du robot principal                 |                          angle voulu                          |
+|     Gate149      |                                                                    |                                                               |
+|      Gate40      |                                                                    |                                                               |
 |    BrasStock     |        Bouge un bras du robot secondaire en position haute         |                          ID du bras                           |
 |    BrasEcueil    |      Bouge un bras du robot secondaire au niveau des écueils       |                          ID du bras                           |
 |    BrasDepot     |      Bouge un bras du robot secondaire au niveau de la table       |                          ID du bras                           |

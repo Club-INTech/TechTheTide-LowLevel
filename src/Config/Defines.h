@@ -18,6 +18,7 @@ constexpr uint8_t RX_WORD_COUNT = 10; // Nombre de mots max par ordre
 
 constexpr uint8_t INTERRUPT_PRINT_STACK_MAX_SIZE = 200;
 
+
 #if defined(MAIN)
 constexpr uint8_t NBR_OF_US_SENSOR = 0;
 constexpr uint8_t NBR_OF_DISTANCE_SENSOR = 6;
@@ -115,6 +116,7 @@ const unsigned int STEP_COUNT_OUST = (650)*3*4; //nombre de pas par palet
  constexpr uint8_t ID_ORDER_SUCK = 2;
 constexpr uint8_t ID_ORDER_FLAG_UP = 7;
 constexpr uint8_t ID_ORDER_FLAG_DOWN = 6;
+
 
 
 

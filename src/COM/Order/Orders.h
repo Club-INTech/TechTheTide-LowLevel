@@ -359,7 +359,11 @@ ORDER(LiftDown, 0);
  * @Description: Bouge les portes du robot principal
  * @Arguments: angle voulu
  */
-ORDER(Gate,1);
+ORDER(Gate90,0);
+ORDER(Gate149,0);
+ORDER(Gate40,0);
+
+
 
 
 
@@ -414,7 +418,7 @@ ORDER(rangeSICK, 3);
 /**
  * @Description: Met le bas niveau en attente du jumper.
  */
-ORDER(waitJumper, 0);
+ORDER(waitJumper, 1);
 /**
  * @Description: Arrête le robot en fin de match.
  */

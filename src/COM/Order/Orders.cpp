@@ -3,10 +3,11 @@
 //
 
 #include "Orders.h"
-
+#include "Config/Defines.h"
 
 
 // TODO : Nettoyer
+
 
 
 using namespace I2CC;
@@ -720,10 +721,28 @@ void ORDER_LiftDown::impl(Args args)
     mot->setGoalAngle(400.0f);
 }
 
-void ORDER_Gate::impl(Args args)
+void ORDER_Gate90::impl(Args args)
 {
     BufferedData arg(1);
-    uint8_t angle = OrderManager::parseInt(args[0]);
+    uint8_t angle = 90;
+    putData(angle, &arg);
+    executeRPC(ID_MAIN, ID_ORDER_GATE, &arg);
+
+}
+
+void ORDER_Gate149::impl(Args args)
+{
+    BufferedData arg(1);
+    uint8_t angle = 149;
+    putData(angle, &arg);
+    executeRPC(ID_MAIN, ID_ORDER_GATE, &arg);
+
+}
+
+void ORDER_Gate40::impl(Args args)
+{
+    BufferedData arg(1);
+    uint8_t angle = 40;
     putData(angle, &arg);
     executeRPC(ID_MAIN, ID_ORDER_GATE, &arg);
 
@@ -1038,6 +1057,7 @@ void ORDER_waitJumper::impl(Args args) {
 //    digitalWrite(LED1_1, HIGH);
 //    digitalWrite(LED1_2, LOW);
 #endif
+
 }
 
 void ORDER_endMatch::impl(Args args) {
